@@ -3,7 +3,7 @@
 if (location.href.substr(0, 5) !== 'https') location.href = 'https' + location.href.substr(4, location.href.length - 4);
 
 /**
- * MiroTalk SFU - Room component
+ * Room component
  *
  * @link    GitHub: https://github.com/miroslavpejic85/mirotalksfu
  * @link    Official Live demo: https://sfu.mirotalk.com
@@ -23,7 +23,7 @@ const RoomURL = window.location.href;
 
 const socket = io({ transports: ['websocket'] });
 
-const surveyActive = true;
+const surveyActive = false;
 
 const url = {
     survey: 'https://www.questionpro.com/t/AUs7VZq02P',
@@ -60,7 +60,7 @@ const lS = new LocalStorage();
 // ####################################################
 
 let currentTheme = 'dark';
-let swalBackground = 'radial-gradient(#393939, #000000)'; //'rgba(0, 0, 0, 0.7)';
+let swalBackground = '#1e1e1e';
 
 let rc = null;
 let producer = null;
@@ -486,22 +486,22 @@ function whoAreYou() {
         allowOutsideClick: false,
         allowEscapeKey: false,
         background: swalBackground,
-        title: 'MiroTalk SFU',
+        title: 'titulo',
         input: 'text',
-        inputPlaceholder: 'Enter your name',
+        inputPlaceholder: 'Digite seu nome',
         inputValue: default_name,
         html: initUser, // Inject HTML
-        confirmButtonText: `Join meeting`,
+        confirmButtonText: `Entrar na Reunião`,
         showClass: {
-            popup: 'animate__animated animate__fadeInDown',
+            popup: 'animate__animated animate__fadeIn',
         },
         hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
+            popup: 'animate__animated animate__fadeOut',
         },
         inputValidator: (name) => {
-            if (!name) return 'Please enter your name';
+            if (!name) return 'Por favor, digite seu nome!';
             name = filterXSS(name);
-            if (isHtml(name)) return 'Invalid name!';
+            if (isHtml(name)) return 'Nome inválido!';
             if (!getCookie(room_id + '_name')) {
                 window.localStorage.peer_name = name;
             }
@@ -509,6 +509,7 @@ function whoAreYou() {
             peer_name = name;
         },
     }).then(() => {
+        console.log('05 ----> Join room TESTE');
         if (initStream && !joinRoomWithScreen) {
             stopTracks(initStream);
             hide(initVideo);
@@ -604,10 +605,10 @@ async function shareRoom(useNavigator = false) {
             await navigator.share({ url: RoomURL });
             userLog('info', 'Room Shared successfully', 'top-end');
         } catch (err) {
-            share();
+            // share();
         }
     } else {
-        share();
+        // share();
     }
     function share() {
         sound('open');
@@ -632,10 +633,10 @@ async function shareRoom(useNavigator = false) {
             denyButtonText: `Email invite`,
             cancelButtonText: `Close`,
             showClass: {
-                popup: 'animate__animated animate__fadeInDown',
+                popup: 'animate__animated animate__fadeIn',
             },
             hideClass: {
-                popup: 'animate__animated animate__fadeOutUp',
+                popup: 'animate__animated animate__fadeOut',
             },
         }).then((result) => {
             if (result.isConfirmed) {
@@ -1536,10 +1537,10 @@ function leaveFeedback() {
         confirmButtonText: `Yes`,
         denyButtonText: `No`,
         showClass: {
-            popup: 'animate__animated animate__fadeInDown',
+            popup: 'animate__animated animate__fadeIn',
         },
         hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
+            popup: 'animate__animated animate__fadeOut',
         },
     }).then((result) => {
         if (result.isConfirmed) {
@@ -1802,10 +1803,10 @@ function whiteboardAddObj(type) {
                 showCancelButton: true,
                 confirmButtonText: 'OK',
                 showClass: {
-                    popup: 'animate__animated animate__fadeInDown',
+                    popup: 'animate__animated animate__fadeIn',
                 },
                 hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp',
+                    popup: 'animate__animated animate__fadeOut',
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -1835,10 +1836,10 @@ function whiteboardAddObj(type) {
                 confirmButtonText: `OK`,
                 denyButtonText: `Cancel`,
                 showClass: {
-                    popup: 'animate__animated animate__fadeInDown',
+                    popup: 'animate__animated animate__fadeIn',
                 },
                 hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp',
+                    popup: 'animate__animated animate__fadeOut',
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -2037,10 +2038,10 @@ function confirmClearBoard() {
         confirmButtonText: `Yes`,
         denyButtonText: `No`,
         showClass: {
-            popup: 'animate__animated animate__fadeInDown',
+            popup: 'animate__animated animate__fadeIn',
         },
         hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
+            popup: 'animate__animated animate__fadeOut',
         },
     }).then((result) => {
         if (result.isConfirmed) {
@@ -2390,10 +2391,10 @@ function showAbout() {
         </div>
         `,
         showClass: {
-            popup: 'animate__animated animate__fadeInDown',
+            popup: 'animate__animated animate__fadeIn',
         },
         hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
+            popup: 'animate__animated animate__fadeOut',
         },
     });
 }

@@ -1,7 +1,7 @@
 swagger: '2.0'
 
 info:
-    title: MiroTalk SFU API
+    title: Mentorfy Meeting API
     description: API description for external applications that integrates with MiroTalk SFU.
     version: 1.0.0
 

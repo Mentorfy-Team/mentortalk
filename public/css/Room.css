@@ -82,7 +82,7 @@ body {
     height: 100%;
     overflow: hidden;
     /* background: var(--body-bg); */
-    background: url('../images/background.jpg');
+    background: rgba(0, 0, 0, 0.67) !important;
 }
 
 /*--------------------------------------------------------------
@@ -107,7 +107,7 @@ body {
     padding: 30px;
     text-align: center;
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.7);
+    background: #1e1e1e;
 }
 #loadingDiv h1 {
     padding: 10px;
@@ -137,13 +137,18 @@ body {
 
 .init-user select {
     width: 100%;
-    margin-top: 15px;
+    margin-top: 20px;
     padding: 10px;
-    background: #2c2c2c;
+    background: #111111 !important;
     color: white;
-    border: var(--border);
-    border-radius: 5px;
+    border: unset;
+    border-radius: 12px;
     cursor: pointer;
+}
+
+.init-user option {
+    padding: 10px;
+    min-height: 60px !important;
 }
 
 .init-user button {
@@ -157,6 +162,12 @@ body {
     color: white;
     background-color: rgb(35, 35, 35);
     transform: scale(1);
+}
+
+.form-select {
+    /* Creates a red outline */
+    outline: 4px solid #111111 !important;
+    /* Removes the default outline */
 }
 
 /*--------------------------------------------------------------
@@ -217,8 +228,9 @@ body {
 #initStopScreenButton {
     font-size: 1.2rem;
     padding: 10px;
-    border: var(--border);
-    border-radius: 5px;
+    border: unset;
+    background-color: #333333;
+    border-radius: 12px;
 }
 
 /*--------------------------------------------------------------
@@ -635,11 +647,21 @@ em-emoji-picker {
     text-align: center;
     color: #fff !important;
     background-color: transparent !important;
+    border-radius: 10px !important;
+    outline: 4px solid #1e1e1e !important;
+}
+.swal2-confirm{
+    background-color: #fb7e27 !important;
+    border-radius: 10px;
 }
 .swal2-html-container {
     text-align: center;
     color: #858585 !important;
     background-color: transparent !important;
+}
+
+.swal2-backdrop-show{
+    background-color: rgba(0, 0, 0, 0) !important;
 }
 
 .swal2-input {
@@ -648,7 +670,7 @@ em-emoji-picker {
 
 .swal2-popup {
     /* border: var(--border) !important; */
-    border: 0.5px solid rgb(255 255 255 / 32%) !important;
+    /* border: 0.5px solid rgb(255 255 255 / 32%) !important; */
 }
 
 .swal2-timer-progress-bar-container {
@@ -1065,11 +1087,11 @@ progress {
 --------------------------------------------------------------*/
 
 .pulsate {
-    animation: pulsate 3s ease-out;
+    /* animation: pulsate 3s ease-out;
     animation-iteration-count: infinite;
     -webkit-animation: pulsate 3s ease-out;
     -webkit-animation-iteration-count: infinite;
-    opacity: 0.5;
+    opacity: 0.5; */
 }
 
 @-webkit-keyframes pulsate {
