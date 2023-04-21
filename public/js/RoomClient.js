@@ -1340,10 +1340,10 @@ class RoomClient {
                 if (isScreen) pn.click();
                 handleAspectRatio();
                 if (!this.isMobileDevice) {
-                    this.setTippy(pn.id, 'Toggle Pin', 'top-end');
-                    this.setTippy(ts.id, 'Snapshot', 'top-end');
-                    this.setTippy(vp.id, 'Toggle video privacy', 'top-end');
-                    this.setTippy(au.id, 'Audio status', 'top-end');
+                    this.setTippy(pn.id, 'Fixar', 'top-end');
+                    this.setTippy(ts.id, 'Tirar print', 'top-end');
+                    this.setTippy(vp.id, 'Habilitar privacidade de vídeo', 'top-end');
+                    this.setTippy(au.id, 'Status de áudio', 'top-end');
                 }
                 console.log('[addProducer] Video-element-count', this.videoMediaContainer.childElementCount);
                 break;
@@ -2331,8 +2331,8 @@ class RoomClient {
                 document.documentElement.style.setProperty('--btns-top', '95%');
                 document.documentElement.style.setProperty('--btns-right', '25%');
                 document.documentElement.style.setProperty('--btns-left', '50%');
-                document.documentElement.style.setProperty('--btns-margin-left', '-160px');
-                document.documentElement.style.setProperty('--btns-width', '320px');
+                document.documentElement.style.setProperty('--btns-margin-left', '-300px');
+                document.documentElement.style.setProperty('--btns-width', '580px');
                 document.documentElement.style.setProperty('--btns-flex-direction', 'row');
                 break;
         }

@@ -122,7 +122,7 @@ ou microfone para usar este aplicativo.
             </div>
         </section>
 
-        <div id="control" class="fadein">
+        <div id="control" class="">
             <button id="shareButton" class="hidden"><i class="fas fa-share-alt"></i></button>
             <button id="hideMeButton" class="hidden"><i id="hideMeIcon" class="fas fa-user"></i></button>
             <button id="startAudioButton" class="hidden"><i class="fas fa-microphone-slash"></i></button>
@@ -140,7 +140,7 @@ ou microfone para usar este aplicativo.
             <button id="exitButton" class="hidden"><i class="fas fa-right-from-bracket"></i></button>
         </div>
 
-        <section id="mySettings" class="fadein center hidden">
+        <section id="mySettings" class="center hidden">
             <header id="mySettingsHeader">
                 <button id="mySettingsCloseBtn" class="fas fa-times"></button>
             </header>
@@ -160,13 +160,13 @@ ou microfone para usar este aplicativo.
                 <div id="tabDevices" class="tabcontent">
                     <br />
                     <i class="fas fa-video"></i>
-                    <p>Video Source:</p>
+                    <p>Entrada de Video:</p>
                     <select id="videoSelect" class="form-select text-light bg-dark"></select>
                     <br />
                     <i class="fas fa-palette"></i>
-                    <p>Video Quality:</p>
+                    <p>Qualidade de Vídeo:</p>
                     <select id="videoQuality" class="form-select text-light bg-dark">
-                        <option value="default">🎥&nbsp;Default</option>
+                        <option value="default">🎥&nbsp;Padrão</option>
                         <option value="qvga">🎥&nbsp;QVGA</option>
                         <option value="vga">🎥&nbsp;VGA</option>
                         <option value="hd">🎥&nbsp;HD</option>
@@ -176,11 +176,11 @@ ou microfone para usar este aplicativo.
                     </select>
                     <br />
                     <i class="fas fa-microphone"></i>
-                    <p>Microphone:</p>
+                    <p>Microfone:</p>
                     <select id="microphoneSelect" class="form-select text-light bg-dark"></select>
                     <br />
                     <i class="fas fa-headphones"></i>
-                    <p>Speaker:</p>
+                    <p>Saída de Som:</p>
                     <select id="speakerSelect" class="form-select text-light bg-dark"></select>
                     <br />
                 </div>
@@ -189,36 +189,38 @@ ou microfone para usar este aplicativo.
                     <br />
                     <button id="fullScreenButton" class="hidden">
                         <i class="fas fa-expand-alt"></i>
-                        <p>Full screen mode</p>
+                        <p>Modo tela cheio</p>
                     </button>
                     <br />
                     <button id="raiseHandButton" class="hidden">
                         <i class="fas fa-hand-paper"></i>
-                        <p>Raise hand</p>
+                        <p>Levantar a mão</p>
                     </button>
                     <button id="lowerHandButton" class="hidden">
                         <i class="fas fa-hand-paper"></i>
-                        <p>Lower hand</p>
+                        <p>Abaixar a mão</p>
                     </button>
                     <br />
                     <button id="fileShareButton" class="hidden">
                         <i class="fas fa-folder-open"></i>
-                        <p>File sharing</p>
+                        <p>Compartilhamento de arquivo</p>
                     </button>
                     <br />
                     <button id="lockRoomButton" class="hidden">
                         <i class="fas fa-lock-open"></i>
-                        <p>Lock room</p>
+                        <p>Proteger sala</p>
                     </button>
                     <button id="unlockRoomButton" class="hidden">
                         <i class="fas fa-lock"></i>
-                        <p>Unlock room</p>
+                        <p>Desproteger sala</p>
                     </button>
                     <hr style="border: 1px solid grey" />
                     <table class="settingsTable">
                         <tr id="lobbyButton" class="hidden">
                             <td>
-                                <label for="switchLobby"><i class="fas fa-shield-halved"></i>&nbsp;&nbsp;Lobby</label>
+                                <label for="switchLobby"
+                                    ><i class="fas fa-shield-halved"></i>&nbsp;&nbsp;Sala de Espera</label
+                                >
                             </td>
                             <td class="form-check form-switch form-switch-md" style="margin-left: 10px">
                                 <input id="switchLobby" class="form-check-input" type="checkbox" />
@@ -227,7 +229,7 @@ ou microfone para usar este aplicativo.
                         <tr id="pitchBarButton">
                             <td>
                                 <label for="switchPitchBar"
-                                    ><i class="fas fa-microphone-lines"></i>&nbsp;&nbsp;Pitch bar</label
+                                    ><i class="fas fa-microphone-lines"></i>&nbsp;&nbsp;Barra de Volume</label
                                 >
                             </td>
                             <td class="form-check form-switch form-switch-md" style="margin-left: 10px">
@@ -236,7 +238,7 @@ ou microfone para usar este aplicativo.
                         </tr>
                         <tr id="soundsButton">
                             <td>
-                                <label for="switchSounds"><i class="fas fa-music"></i>&nbsp;&nbsp;Sounds</label>
+                                <label for="switchSounds"><i class="fas fa-music"></i>&nbsp;&nbsp;Soms</label>
                             </td>
                             <td class="form-check form-switch form-switch-md" style="margin-left: 10px">
                                 <input id="switchSounds" class="form-check-input" type="checkbox" checked />
@@ -244,7 +246,7 @@ ou microfone para usar este aplicativo.
                         </tr>
                         <tr>
                             <td>
-                                <label for="sessionTime"><i class="fas fa-clock"></i>&nbsp;&nbsp;Session time</label>
+                                <label for="sessionTime"><i class="fas fa-clock"></i>&nbsp;&nbsp;Tempo de sessão</label>
                             </td>
                             <td><label id="sessionTime">00:00:00</label></td>
                         </tr>
@@ -255,11 +257,11 @@ ou microfone para usar este aplicativo.
                     <br />
                     <button id="startRecButton" class="hidden">
                         <i class="fas fa-record-vinyl"></i>
-                        <p>Start recording</p>
+                        <p>Gravar reunião</p>
                     </button>
                     <button id="stopRecButton" class="hidden">
                         <i class="fas fa-stop-circle"></i>
-                        <p>Stop recording</p>
+                        <p>Parar gravação</p>
                     </button>
                     <br />
                     <button id="pauseRecButton" class="hidden">
@@ -268,12 +270,12 @@ ou microfone para usar este aplicativo.
                     </button>
                     <button id="resumeRecButton" class="hidden">
                         <i class="far fa-play-circle"></i>
-                        <p>Resume recording</p>
+                        <p>Continuar gravação</p>
                     </button>
                     <hr style="border: 1px solid grey" />
                     <table class="settingsTable">
                         <tr>
-                            <td><i style="color: red" class="fa-solid fa-circle"></i>&nbsp;&nbsp;REC time:</td>
+                            <td><i style="color: red" class="fa-solid fa-circle"></i>&nbsp;&nbsp;Tempo de gravação:</td>
                             <td id="recordingStatus">0s</td>
                         </tr>
                     </table>
@@ -283,57 +285,57 @@ ou microfone para usar este aplicativo.
                     <br />
                     <button id="videoShareButton">
                         <i class="fab fa-youtube"></i>
-                        <p>Share a Video or Audio</p>
+                        <p>Compartilhar um vídeo ou um áudio</p>
                     </button>
                     <br />
                     <button id="videoCloseBtn" class="hidden">
                         <i class="fas fa-times"></i>
-                        <p>Close Video or Audio</p>
+                        <p>Encerrar vídeo ou áudio</p>
                     </button>
                     <br />
                 </div>
 
                 <div id="tabAspect" class="tabcontent">
                     <br />
-                    <p>Aspect ratio:</p>
+                    <p>Porporção de vídeo:</p>
                     <br />
                     <select id="BtnsAspectRatio" class="form-select text-light bg-dark">
-                        <option value="0">default</option>
+                        <option value="0">padrão</option>
                         <option value="1">4:3</option>
                         <option value="2">16:9</option>
                         <option value="3">1:1</option>
                         <option value="4">1:2</option>
                     </select>
                     <br />
-                    <p>Video Object fit:</p>
+                    <p>Alinhamento de vídeo:</p>
                     <br />
                     <select id="BtnVideoObjectFit" class="form-select text-light bg-dark">
-                        <option value="fill">fill</option>
-                        <option value="contain">contain</option>
-                        <option value="cover">cover</option>
-                        <option value="scale-down">scale-down</option>
-                        <option value="none">none</option>
+                        <option value="fill">preenchar</option>
+                        <option value="contain">conter</option>
+                        <option value="cover">cobrir</option>
+                        <option value="scale-down">Escalar para menos</option>
+                        <option value="none">nada</option>
                     </select>
                     <br />
-                    <p>Video Controls:</p>
+                    <p>Controles de vídeo:</p>
                     <br />
                     <select id="BtnVideoControls" class="form-select text-light bg-dark">
-                        <option value="Off">Off</option>
-                        <option value="On">On</option>
+                        <option value="Off">Desligado</option>
+                        <option value="On">Ligado</option>
                     </select>
                     <br />
                 </div>
 
                 <div id="tabStyling" class="tabcontent">
                     <br />
-                    <p>Theme:</p>
+                    <p>Tema:</p>
                     <br />
                     <select id="selectTheme" class="form-select text-light bg-dark">
-                        <option value="dark">⚫ &nbsp;Dark</option>
-                        <option value="grey">⚪ &nbsp;Grey</option>
+                        <option value="dark">⚫ &nbsp;Escuro</option>
+                        <option value="grey">⚪ &nbsp;Claro</option>
                     </select>
                     <br />
-                    <p>Buttons bar:</p>
+                    <p>Barra de botões</p>
                     <br />
                     <select id="BtnsBarPosition" class="form-select text-light bg-dark">
                         <option value="vertical">Vertical</option>
@@ -341,19 +343,19 @@ ou microfone para usar este aplicativo.
                     </select>
                     <br />
                     <div id="pinUnpinGridDiv" class="hidden">
-                        <p>Pin grid:</p>
+                        <p>Grade de Fixação:</p>
                         <br />
                         <select id="pinVideoPosition" class="form-select text-light bg-dark">
                             <option value="vertical">Vertical</option>
                             <option value="horizontal">Horizontal</option>
-                            <option value="top">Top</option>
+                            <option value="top">Topo</option>
                         </select>
                     </div>
                 </div>
 
                 <div id="tabLanguages" class="tabcontent">
                     <br />
-                    <p>Language:</p>
+                    <p>Linguagem:</p>
                     <br />
                     <div id="google_translate_element"></div>
                 </div>
@@ -367,7 +369,7 @@ ou microfone para usar este aplicativo.
         <div id="localAudio"></div>
         <div id="remoteAudios"></div>
 
-        <div id="sendFileDiv" class="fadein center">
+        <div id="sendFileDiv" class="center">
             <img id="imgShareSend" src="../images/share.png" alt="mirotalkshare-send" class="center-img" /><br />
             <div id="sendFileInfo"></div>
             <div id="sendFilePercentage"></div>
@@ -375,7 +377,7 @@ ou microfone para usar este aplicativo.
             <button id="sendAbortBtn"><i class="fas fa-stop-circle"></i>&nbsp; Abort</button>
         </div>
 
-        <div id="receiveFileDiv" class="fadein center">
+        <div id="receiveFileDiv" class="center">
             <img id="imgShareReceive" src="../images/share.png" alt="mirotalkshare-receive" class="center-img" /><br />
             <div id="receiveFileInfo"></div>
             <div id="receiveFilePercentage"></div>
@@ -383,7 +385,7 @@ ou microfone para usar este aplicativo.
             <button id="receiveHideBtn"><i class="fas fa-eye-slash"></i>&nbsp; Hide</button>
         </div>
 
-        <section id="participants" class="fadein center hidden">
+        <section id="participants" class="center hidden">
             <header id="participantsHeader" class="participants-header">
                 <div class="participants-header-options">
                     <button id="participantsCloseBtn" class="fas fa-times"></button>
@@ -396,7 +398,7 @@ ou microfone para usar este aplicativo.
             </main>
         </section>
 
-        <section id="whiteboard" class="fadein center hidden">
+        <section id="whiteboard" class="center hidden">
             <header id="whiteboardHeader" class="whiteboard-header">
                 <div id="whiteboardTitle" class="whiteboard-header-title">
                     <button id="whiteboardCloseBtn" class="fas fa-times"></button>
@@ -436,7 +438,7 @@ ou microfone para usar este aplicativo.
             </main>
         </section>
 
-        <section id="chatRoom" class="chat-room center fadein">
+        <section id="chatRoom" class="chat-room center">
             <section id="msger" class="msger">
                 <header id="chatHeader" class="chat-header">
                     <div class="chat-header-title">
@@ -459,7 +461,7 @@ ou microfone para usar este aplicativo.
                         cols="1"
                         id="chatMessage"
                         class="chat-msger-input"
-                        placeholder="💬 Write a message..."
+                        placeholder="💬 Escreva sua mensagem..."
                     ></textarea>
                 </div>
                 <div class="chat-msger-buttons">
@@ -495,11 +497,11 @@ ou microfone para usar este aplicativo.
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
-                <div id="chatEmoji" class="hidden fadein"></div>
+                <div id="chatEmoji" class="hidden"></div>
             </section>
         </section>
 
-        <section id="lobby" class="fadein center hidden">
+        <section id="lobby" class="center hidden">
             <header id="lobbyHeader" class="lobby-header">
                 <div id="lobbyHeaderTitle" class="lobby-header-title">Lobby users</div>
             </header>

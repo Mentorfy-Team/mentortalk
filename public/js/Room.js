@@ -123,73 +123,73 @@ let initStream = null;
 
 function initClient() {
     if (!DetectRTC.isMobileDevice) {
-        setTippy('shareButton', 'Share room', 'right');
-        setTippy('hideMeButton', 'Toggle hide me', 'right');
-        setTippy('startAudioButton', 'Start the audio', 'right');
-        setTippy('stopAudioButton', 'Stop the audio', 'right');
-        setTippy('startVideoButton', 'Start the video', 'right');
-        setTippy('stopVideoButton', 'Stop the video', 'right');
-        setTippy('startScreenButton', 'Start screen share', 'right');
-        setTippy('stopScreenButton', 'Stop screen share', 'right');
-        setTippy('swapCameraButton', 'Swap the camera', 'right');
-        setTippy('chatButton', 'Toggle the chat', 'right');
-        setTippy('whiteboardButton', 'Toggle the whiteboard', 'right');
-        setTippy('settingsButton', 'Toggle the settings', 'right');
-        setTippy('aboutButton', 'About this project', 'right');
-        setTippy('exitButton', 'Leave room', 'right');
-        setTippy('mySettingsCloseBtn', 'Close', 'right');
-        setTippy('tabDevicesBtn', 'Devices', 'top');
-        setTippy('tabRecordingBtn', 'Recording', 'top');
-        setTippy('tabRoomBtn', 'Room', 'top');
-        setTippy('tabVideoShareBtn', 'Video share', 'top');
-        setTippy('tabAspectBtn', 'Aspect', 'top');
-        setTippy('tabStylingBtn', 'Styling', 'top');
-        setTippy('tabLanguagesBtn', 'Languages', 'top');
-        setTippy('lobbyAcceptAllBtn', 'Accept', 'top');
-        setTippy('lobbyRejectAllBtn', 'Reject', 'top');
+        setTippy('shareButton', 'Compartilhar Reunião', 'right');
+        setTippy('hideMeButton', 'Me Esconder', 'right');
+        setTippy('startAudioButton', 'Habilitar audio', 'right');
+        setTippy('stopAudioButton', 'Desabilitar audio', 'right');
+        setTippy('startVideoButton', 'Habilitar vídeo', 'right');
+        setTippy('stopVideoButton', 'Desabilitar video', 'right');
+        setTippy('startScreenButton', 'Compartilhar Tela', 'right');
+        setTippy('stopScreenButton', 'Parar Compartilhamento de Tela', 'right');
+        setTippy('swapCameraButton', 'Trocar Camera', 'right');
+        setTippy('chatButton', 'Mostrar Chat', 'right');
+        setTippy('whiteboardButton', 'Mostrar Quadro Branco', 'right');
+        setTippy('settingsButton', 'Mostrar Configurações', 'right');
+        setTippy('aboutButton', 'Sobre', 'right');
+        setTippy('exitButton', 'Sair da Reunião', 'right');
+        setTippy('mySettingsCloseBtn', 'Fechar', 'right');
+        setTippy('tabDevicesBtn', 'Dispositivos', 'top');
+        setTippy('tabRecordingBtn', 'Gravação', 'top');
+        setTippy('tabRoomBtn', 'Reunão', 'top');
+        setTippy('tabVideoShareBtn', 'Compartilhamento de Vídeo', 'top');
+        setTippy('tabAspectBtn', 'Aspecto', 'top');
+        setTippy('tabStylingBtn', 'Estilização', 'top');
+        setTippy('tabLanguagesBtn', 'Linguagens', 'top');
+        setTippy('lobbyAcceptAllBtn', 'Aceitar', 'top');
+        setTippy('lobbyRejectAllBtn', 'Rejeitar', 'top');
         setTippy(
             'switchLobby',
-            'Lobby mode lets you protect your meeting by only allowing people to enter after a formal approval by a moderator',
+            'Modo de Espera permite que você aceite ou rejeite participantes antes de entrar na reunião',
             'right',
         );
-        setTippy('switchPitchBar', 'Toggle audio pitch bar', 'right');
-        setTippy('switchSounds', 'Toggle the sounds notifications', 'right');
-        setTippy('whiteboardGhostButton', 'Toggle transparent background', 'bottom');
-        setTippy('wbBackgroundColorEl', 'Background color', 'bottom');
-        setTippy('wbDrawingColorEl', 'Drawing color', 'bottom');
-        setTippy('whiteboardPencilBtn', 'Drawing mode', 'bottom');
-        setTippy('whiteboardObjectBtn', 'Object mode', 'bottom');
-        setTippy('whiteboardUndoBtn', 'Undo', 'bottom');
-        setTippy('whiteboardRedoBtn', 'Redo', 'bottom');
-        setTippy('whiteboardImgFileBtn', 'Add image file', 'bottom');
-        setTippy('whiteboardImgUrlBtn', 'Add image url', 'bottom');
-        setTippy('whiteboardTextBtn', 'Add text', 'bottom');
-        setTippy('whiteboardLineBtn', 'Add line', 'bottom');
-        setTippy('whiteboardRectBtn', 'Add rectangle', 'bottom');
-        setTippy('whiteboardTriangleBtn', 'Add triangle', 'bottom');
-        setTippy('whiteboardCircleBtn', 'Add circle', 'bottom');
-        setTippy('whiteboardSaveBtn', 'Save', 'bottom');
-        setTippy('whiteboardEraserBtn', 'Eraser', 'bottom');
-        setTippy('whiteboardCleanBtn', 'Clean', 'bottom');
-        setTippy('whiteboardCloseBtn', 'Close', 'right');
-        setTippy('chatCleanTextButton', 'Clean', 'top');
-        setTippy('chatPasteButton', 'Paste', 'top');
-        setTippy('chatSendButton', 'Send', 'top');
-        setTippy('showChatOnMsg', "Toggle show me when I'm receive a new message", 'top');
-        setTippy('chatSpeechStartButton', 'Start speech recognition', 'top');
-        setTippy('chatSpeechStopButton', 'Stop speech recognition', 'top');
+        setTippy('switchPitchBar', 'Habilitar barra de volume', 'right');
+        setTippy('switchSounds', 'Habilitar som de notificações', 'right');
+        setTippy('whiteboardGhostButton', 'Habilitar fundo transparente', 'bottom');
+        setTippy('wbBackgroundColorEl', 'Cor de Fundo', 'bottom');
+        setTippy('wbDrawingColorEl', 'Cor de Desenho', 'bottom');
+        setTippy('whiteboardPencilBtn', 'Modo de Desenho', 'bottom');
+        setTippy('whiteboardObjectBtn', 'Modo Objeto', 'bottom');
+        setTippy('whiteboardUndoBtn', 'Desfazer', 'bottom');
+        setTippy('whiteboardRedoBtn', 'Refazer', 'bottom');
+        setTippy('whiteboardImgFileBtn', 'Adicionar imagem', 'bottom');
+        setTippy('whiteboardImgUrlBtn', 'Adionar url de image', 'bottom');
+        setTippy('whiteboardTextBtn', 'Adicionar texto', 'bottom');
+        setTippy('whiteboardLineBtn', 'Adicionar linha', 'bottom');
+        setTippy('whiteboardRectBtn', 'Adicionar retangulo', 'bottom');
+        setTippy('whiteboardTriangleBtn', 'Adicionar triangulo', 'bottom');
+        setTippy('whiteboardCircleBtn', 'Adicionar circulo', 'bottom');
+        setTippy('whiteboardSaveBtn', 'Salvar', 'bottom');
+        setTippy('whiteboardEraserBtn', 'Borracha', 'bottom');
+        setTippy('whiteboardCleanBtn', 'Limpar', 'bottom');
+        setTippy('whiteboardCloseBtn', 'Fechar', 'right');
+        setTippy('chatCleanTextButton', 'Limpar', 'top');
+        setTippy('chatPasteButton', 'Colar', 'top');
+        setTippy('chatSendButton', 'Enviar', 'top');
+        setTippy('showChatOnMsg', 'Avisar sobre novas mensagens', 'top');
+        setTippy('chatSpeechStartButton', 'Iniciar reconhecimento de voz', 'top');
+        setTippy('chatSpeechStopButton', 'Parar reconhecimento de voz', 'top');
         setTippy('chatEmojiButton', 'Emoji', 'top');
         setTippy('chatMarkdownButton', 'Markdown', 'top');
         setTippy('chatGPTButton', 'ChatGPT', 'top');
-        setTippy('chatShareFileButton', 'Share file', 'top');
-        setTippy('chatCleanButton', 'Clean', 'bottom');
-        setTippy('chatSaveButton', 'Save', 'bottom');
-        setTippy('chatGhostButton', 'Toggle transparent background', 'bottom');
-        setTippy('chatCloseButton', 'Close', 'right');
-        setTippy('chatMaxButton', 'Maximize', 'right');
-        setTippy('chatMinButton', 'Minimize', 'right');
-        setTippy('participantsCloseBtn', 'Close', 'left');
-        setTippy('participantsSaveBtn', 'Save participants info', 'right');
+        setTippy('chatShareFileButton', 'Compartilhar Arquivo', 'top');
+        setTippy('chatCleanButton', 'Limpar', 'bottom');
+        setTippy('chatSaveButton', 'Salvar', 'bottom');
+        setTippy('chatGhostButton', 'Habilitar fundo transparente', 'bottom');
+        setTippy('chatCloseButton', 'Fechar', 'right');
+        setTippy('chatMaxButton', 'Maximizar', 'right');
+        setTippy('chatMinButton', 'Minimizar', 'right');
+        setTippy('participantsCloseBtn', 'Fechar', 'left');
+        setTippy('participantsSaveBtn', 'Salvar informações de participantes', 'right');
     }
     setupWhiteboard();
     initEnumerateDevices();
@@ -721,7 +721,7 @@ function joinRoom(peer_name, room_id) {
 }
 
 function roomIsReady() {
-    setTheme('dark');
+    setTheme('grey');
     BUTTONS.main.exitButton && show(exitButton);
     BUTTONS.main.shareButton && show(shareButton);
     BUTTONS.main.hideMeButton && show(hideMeButton);
@@ -1627,8 +1627,8 @@ function showButtons() {
 
 function checkButtonsBar() {
     if (!isButtonsBarOver) {
-        toggleClassElements('videoMenuBar', 'none');
-        control.style.display = 'none';
+        //toggleClassElements('videoMenuBar', 'none');
+        //control.style.display = 'none';
         isButtonsVisible = false;
     }
     setTimeout(() => {
