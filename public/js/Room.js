@@ -486,17 +486,17 @@ function whoAreYou() {
         allowOutsideClick: false,
         allowEscapeKey: false,
         background: swalBackground,
-        title: '',
+        title: 'titulo',
         input: 'text',
         inputPlaceholder: 'Digite seu nome',
         inputValue: default_name,
         html: initUser, // Inject HTML
         confirmButtonText: `Entrar na Reunião`,
         showClass: {
-            popup: 'none',
+            popup: 'animate__animated animate__fadeIn',
         },
         hideClass: {
-            popup: 'none',
+            popup: 'animate__animated animate__fadeOut',
         },
         inputValidator: (name) => {
             if (!name) return 'Por favor, digite seu nome!';
@@ -508,19 +508,15 @@ function whoAreYou() {
             setCookie(room_id + '_name', name, 30);
             peer_name = name;
         },
-    })
-        .then(() => {
-            console.log('05 ----> Join room TESTE');
-            if (initStream && !joinRoomWithScreen) {
-                stopTracks(initStream);
-                hide(initVideo);
-            }
-            getPeerInfo();
-            joinRoom(peer_name, room_id);
-        })
-        .catch((error) => {
-            console.log('05 ----> Join room ERROR', error);
-        });
+    }).then(() => {
+        console.log('05 ----> Join room TESTE');
+        if (initStream && !joinRoomWithScreen) {
+            stopTracks(initStream);
+            hide(initVideo);
+        }
+        getPeerInfo();
+        joinRoom(peer_name, room_id);
+    });
 }
 
 function handleAudio(e) {
@@ -609,10 +605,10 @@ async function shareRoom(useNavigator = false) {
             await navigator.share({ url: RoomURL });
             userLog('info', 'Room Shared successfully', 'top-end');
         } catch (err) {
-            share();
+            // share();
         }
     } else {
-        share();
+        // share();
     }
     function share() {
         sound('open');
@@ -637,10 +633,10 @@ async function shareRoom(useNavigator = false) {
             denyButtonText: `Email invite`,
             cancelButtonText: `Close`,
             showClass: {
-                popup: 'animate__animated animate__fadeInDown',
+                popup: 'animate__animated animate__fadeIn',
             },
             hideClass: {
-                popup: 'animate__animated animate__fadeOutUp',
+                popup: 'animate__animated animate__fadeOut',
             },
         }).then((result) => {
             if (result.isConfirmed) {
@@ -1541,10 +1537,10 @@ function leaveFeedback() {
         confirmButtonText: `Yes`,
         denyButtonText: `No`,
         showClass: {
-            popup: 'animate__animated animate__fadeInDown',
+            popup: 'animate__animated animate__fadeIn',
         },
         hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
+            popup: 'animate__animated animate__fadeOut',
         },
     }).then((result) => {
         if (result.isConfirmed) {
@@ -1807,10 +1803,10 @@ function whiteboardAddObj(type) {
                 showCancelButton: true,
                 confirmButtonText: 'OK',
                 showClass: {
-                    popup: 'animate__animated animate__fadeInDown',
+                    popup: 'animate__animated animate__fadeIn',
                 },
                 hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp',
+                    popup: 'animate__animated animate__fadeOut',
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -1840,10 +1836,10 @@ function whiteboardAddObj(type) {
                 confirmButtonText: `OK`,
                 denyButtonText: `Cancel`,
                 showClass: {
-                    popup: 'animate__animated animate__fadeInDown',
+                    popup: 'animate__animated animate__fadeIn',
                 },
                 hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp',
+                    popup: 'animate__animated animate__fadeOut',
                 },
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -2042,10 +2038,10 @@ function confirmClearBoard() {
         confirmButtonText: `Yes`,
         denyButtonText: `No`,
         showClass: {
-            popup: 'animate__animated animate__fadeInDown',
+            popup: 'animate__animated animate__fadeIn',
         },
         hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
+            popup: 'animate__animated animate__fadeOut',
         },
     }).then((result) => {
         if (result.isConfirmed) {
@@ -2395,10 +2391,10 @@ function showAbout() {
         </div>
         `,
         showClass: {
-            popup: 'animate__animated animate__fadeInDown',
+            popup: 'animate__animated animate__fadeIn',
         },
         hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
+            popup: 'animate__animated animate__fadeOut',
         },
     });
 }
