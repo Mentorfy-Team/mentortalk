@@ -3,7 +3,7 @@
 if (location.href.substr(0, 5) !== 'https') location.href = 'https' + location.href.substr(4, location.href.length - 4);
 
 /**
- * MiroTalk SFU - Room component
+ * Room component
  *
  * @link    GitHub: https://github.com/miroslavpejic85/mirotalksfu
  * @link    Official Live demo: https://sfu.mirotalk.com
@@ -23,7 +23,7 @@ const RoomURL = window.location.href;
 
 const socket = io({ transports: ['websocket'] });
 
-const surveyActive = true;
+const surveyActive = false;
 
 const url = {
     survey: 'https://www.questionpro.com/t/AUs7VZq02P',
@@ -60,7 +60,7 @@ const lS = new LocalStorage();
 // ####################################################
 
 let currentTheme = 'dark';
-let swalBackground = 'radial-gradient(#393939, #000000)'; //'rgba(0, 0, 0, 0.7)';
+let swalBackground = '#1e1e1e';
 
 let rc = null;
 let producer = null;
@@ -486,36 +486,41 @@ function whoAreYou() {
         allowOutsideClick: false,
         allowEscapeKey: false,
         background: swalBackground,
-        title: 'MiroTalk SFU',
+        title: '',
         input: 'text',
-        inputPlaceholder: 'Enter your name',
+        inputPlaceholder: 'Digite seu nome',
         inputValue: default_name,
         html: initUser, // Inject HTML
-        confirmButtonText: `Join meeting`,
+        confirmButtonText: `Entrar na Reunião`,
         showClass: {
-            popup: 'animate__animated animate__fadeInDown',
+            popup: 'none',
         },
         hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
+            popup: 'none',
         },
         inputValidator: (name) => {
-            if (!name) return 'Please enter your name';
+            if (!name) return 'Por favor, digite seu nome!';
             name = filterXSS(name);
-            if (isHtml(name)) return 'Invalid name!';
+            if (isHtml(name)) return 'Nome inválido!';
             if (!getCookie(room_id + '_name')) {
                 window.localStorage.peer_name = name;
             }
             setCookie(room_id + '_name', name, 30);
             peer_name = name;
         },
-    }).then(() => {
-        if (initStream && !joinRoomWithScreen) {
-            stopTracks(initStream);
-            hide(initVideo);
-        }
-        getPeerInfo();
-        joinRoom(peer_name, room_id);
-    });
+    })
+        .then(() => {
+            console.log('05 ----> Join room TESTE');
+            if (initStream && !joinRoomWithScreen) {
+                stopTracks(initStream);
+                hide(initVideo);
+            }
+            getPeerInfo();
+            joinRoom(peer_name, room_id);
+        })
+        .catch((error) => {
+            console.log('05 ----> Join room ERROR', error);
+        });
 }
 
 function handleAudio(e) {

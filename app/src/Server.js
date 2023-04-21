@@ -32,7 +32,7 @@ dependencies: {
 */
 
 /**
- * MiroTalk SFU - Server component
+ * Server component
  *
  * @link    GitHub: https://github.com/miroslavpejic85/mirotalksfu
  * @link    Official Live demo: https://sfu.mirotalk.com
@@ -145,13 +145,13 @@ const dir = {
 
 // html views
 const views = {
-    about: path.join(__dirname, '../../', 'public/views/about.html'),
-    landing: path.join(__dirname, '../../', 'public/views/landing.html'),
-    login: path.join(__dirname, '../../', 'public/views/login.html'),
+    // about: path.join(__dirname, '../../', 'public/views/about.html'),
+    // landing: path.join(__dirname, '../../', 'public/views/landing.html'),
+    // login: path.join(__dirname, '../../', 'public/views/login.html'),
     newRoom: path.join(__dirname, '../../', 'public/views/newroom.html'),
     notFound: path.join(__dirname, '../../', 'public/views/404.html'),
     permission: path.join(__dirname, '../../', 'public/views/permission.html'),
-    privacy: path.join(__dirname, '../../', 'public/views/privacy.html'),
+    // privacy: path.join(__dirname, '../../', 'public/views/privacy.html'),
     room: path.join(__dirname, '../../', 'public/views/Room.html'),
 };
 
@@ -225,30 +225,31 @@ function startServer() {
             hostCfg.authenticated = false;
             res.sendFile(views.login);
         } else {
-            res.sendFile(views.landing);
+            // redirect to app.mentorfy.io
+            res.sendFile(views.newRoom);
         }
     });
 
     // handle login on host protected
-    app.get(['/login'], (req, res) => {
-        if (hostCfg.protected == true) {
-            let ip = getIP(req);
-            log.debug(`Request login to host from: ${ip}`, req.query);
-            const { username, password } = checkXSS(req.query);
-            if (username == hostCfg.username && password == hostCfg.password) {
-                hostCfg.authenticated = true;
-                authHost = new Host(ip, true);
-                log.debug('LOGIN OK', { ip: ip, authorized: authHost.isAuthorized(ip) });
-                res.sendFile(views.landing);
-            } else {
-                log.debug('LOGIN KO', { ip: ip, authorized: false });
-                hostCfg.authenticated = false;
-                res.sendFile(views.login);
-            }
-        } else {
-            res.redirect('/');
-        }
-    });
+    // app.get(['/login'], (req, res) => {
+    //     if (hostCfg.protected == true) {
+    //         let ip = getIP(req);
+    //         log.debug(`Request login to host from: ${ip}`, req.query);
+    //         const { username, password } = checkXSS(req.query);
+    //         if (username == hostCfg.username && password == hostCfg.password) {
+    //             hostCfg.authenticated = true;
+    //             authHost = new Host(ip, true);
+    //             log.debug('LOGIN OK', { ip: ip, authorized: authHost.isAuthorized(ip) });
+    //             res.sendFile(views.landing);
+    //         } else {
+    //             log.debug('LOGIN KO', { ip: ip, authorized: false });
+    //             hostCfg.authenticated = false;
+    //             res.sendFile(views.login);
+    //         }
+    //     } else {
+    //         res.redirect('/');
+    //     }
+    // });
 
     // set new room name and join
     app.get(['/newroom'], (req, res) => {
@@ -298,14 +299,14 @@ function startServer() {
     });
 
     // privacy policy
-    app.get(['/privacy'], (req, res) => {
-        res.sendFile(views.privacy);
-    });
+    // app.get(['/privacy'], (req, res) => {
+    //     res.sendFile(views.privacy);
+    // });
 
     // mirotalk about
-    app.get(['/about'], (req, res) => {
-        res.sendFile(views.about);
-    });
+    // app.get(['/about'], (req, res) => {
+    //     res.sendFile(views.about);
+    // });
 
     // ####################################################
     // API
