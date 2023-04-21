@@ -486,7 +486,7 @@ function whoAreYou() {
         allowOutsideClick: false,
         allowEscapeKey: false,
         background: swalBackground,
-        title: 'titulo',
+        title: '',
         input: 'text',
         inputPlaceholder: 'Digite seu nome',
         inputValue: default_name,
