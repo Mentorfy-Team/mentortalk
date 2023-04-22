@@ -3572,8 +3572,8 @@ class RoomClient {
             background: swalBackground,
             position: 'center',
             imageUrl: image.videoShare,
-            title: 'Share a Video or Audio',
-            text: 'Paste a Video or Audio URL',
+            title: 'Compartilhar um vídeo ou áudio',
+            text: 'Color uma URL de vídeo ou áudio',
             input: 'text',
             showCancelButton: true,
             confirmButtonText: `Share`,
@@ -3712,8 +3712,8 @@ class RoomClient {
         });
         this.handlePN(video.id, pn.id, d.id);
         if (!this.isMobileDevice) {
-            this.setTippy(pn.id, 'Toggle Pin video player', 'top-end');
-            this.setTippy(e.id, 'Close video player', 'top-end');
+            this.setTippy(pn.id, 'Alternar fixar vídeo player', 'top-end');
+            this.setTippy(e.id, 'Fechar video player', 'top-end');
         }
         console.log('[openVideo] Video-element-count', this.videoMediaContainer.childElementCount);
         this.sound('joined');
@@ -3780,9 +3780,9 @@ class RoomClient {
                             background: swalBackground,
                             imageUrl: image.locked,
                             input: 'text',
-                            inputPlaceholder: 'Set Room password',
+                            inputPlaceholder: 'Defina a senha da sala',
                             confirmButtonText: `OK`,
-                            denyButtonText: `Cancel`,
+                            denyButtonText: `Cancelar`,
                             showClass: {
                                 popup: 'animate__animated animate__fadeInDown',
                             },
@@ -3900,11 +3900,11 @@ class RoomClient {
 
                     lobbyTb.innerHTML += lobbyTr;
                     lobbyParticipantsCount++;
-                    lobbyHeaderTitle.innerText = 'Lobby users (' + lobbyParticipantsCount + ')';
+                    lobbyHeaderTitle.innerText = 'Usuários na sala de espera (' + lobbyParticipantsCount + ')';
                     if (!isLobbyOpen) this.lobbyToggle();
                     if (!this.isMobileDevice) {
-                        setTippy(lobbyAcceptId, 'Accept', 'top');
-                        setTippy(lobbyRejectId, 'Reject', 'top');
+                        setTippy(lobbyAcceptId, 'Aceitar', 'top');
+                        setTippy(lobbyRejectId, 'Rejeitar', 'top');
                     }
                     this.userLog('info', peer_name + ' quer entrar na reunião', 'top-end');
                 }
@@ -3923,7 +3923,7 @@ class RoomClient {
                     showDenyButton: false,
                     showConfirmButton: true,
                     background: swalBackground,
-                    title: 'Rejected',
+                    title: 'Rejeitado',
                     text: 'Sua entrada para a reunião foi recusada pelo moderador',
                     confirmButtonText: `Ok`,
                     showClass: {
@@ -4100,7 +4100,7 @@ class RoomClient {
             background: swalBackground,
             position: 'center',
             imageUrl: image.locked,
-            title: 'Oops, Wrong Room Password',
+            title: 'Oops, Senha Incorreta',
             text: 'A sala está fechada, tente com outra.',
             showDenyButton: false,
             confirmButtonText: `Ok`,
@@ -4286,7 +4286,7 @@ class RoomClient {
                 case 'eject':
                     if (peer_id === this.peer_id || broadcast) {
                         this.sound(action);
-                        this.peerActionProgress(from_peer_name, 'Will eject you from the room', 5000, action);
+                        this.peerActionProgress(from_peer_name, 'Irá remover você da sala', 5000, action);
                     }
                     break;
                 case 'mute':
