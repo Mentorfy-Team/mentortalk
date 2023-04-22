@@ -1107,11 +1107,11 @@ function handleButtons() {
 
 function setButtonsInit() {
     if (!DetectRTC.isMobileDevice) {
-        setTippy('initAudioButton', 'Toggle the audio', 'top');
-        setTippy('initVideoButton', 'Toggle the video', 'top');
-        setTippy('initAudioVideoButton', 'Toggle the audio & video', 'top');
-        setTippy('initStartScreenButton', 'Toggle screen sharing', 'top');
-        setTippy('initStopScreenButton', 'Toggle screen sharing', 'top');
+        setTippy('initAudioButton', 'Alternar áudio', 'top');
+        setTippy('initVideoButton', 'Alternar vídeo', 'top');
+        setTippy('initAudioVideoButton', 'Alternar áudio & vídeo', 'top');
+        setTippy('initStartScreenButton', 'Alternar compartilhamento de tela', 'top');
+        setTippy('initStopScreenButton', 'Alternar compartilhamento de tela', 'top');
     }
     initAudioButton = document.getElementById('initAudioButton');
     initVideoButton = document.getElementById('initVideoButton');
