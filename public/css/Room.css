@@ -397,7 +397,7 @@ th {
     position: fixed;
     height: var(--msger-height);
     width: var(--msger-width);
-    min-height: var(--msger-height);
+    min-height: calc(var(--msger-height) - 400px);
     min-width: var(--msger-width);
     background: var(--msger-bg);
     border: var(--border);
@@ -405,6 +405,10 @@ th {
     box-shadow: var(--box-shadow);
     resize: both;
     overflow: hidden;
+
+    @media screen and (min-width: 600px) {
+        max-height: 80vh;
+    }
 }
 
 .msger {
