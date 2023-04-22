@@ -2136,7 +2136,7 @@ async function getParticipantsTable(peers) {
         <button
             id="inviteParticipants"
             onclick="shareRoom(true);"
-        ><i class="fas fa-user-plus"></i>&nbsp; Invite Someone</button>
+        ><i class="fas fa-user-plus"></i>&nbsp; Convidar uma pessoa</button>
     </div>
     <div>
         <input
@@ -2164,7 +2164,7 @@ async function getParticipantsTable(peers) {
         table += `
     <tr>
         <td>&nbsp;<i class="fas fa-users fa-lg"></i></td>
-        <td>all</td>
+        <td>Todos</td>
         <td><button id="muteAllButton" onclick="rc.peerAction('me','${rc.peer_id}','mute',true,true)">${_PEER.audioOff}</button></td>
         <td><button id="hideAllButton" onclick="rc.peerAction('me','${rc.peer_id}','hide',true,true)">${_PEER.videoOff}</button></td>
         <td></td>
@@ -2191,7 +2191,7 @@ async function getParticipantsTable(peers) {
             table += `
             <tr id='${peer_name}'>
                 <td><img src="${avatarImg}"></td>
-                <td>${peer_name} (me)</td>
+                <td>${peer_name} (eu)</td>
                 <td><button>${peer_audio}</button></td>
                 <td><button>${peer_video}</button></td>
                 <td><button>${peer_hand}</button></td>
