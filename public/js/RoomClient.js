@@ -1934,10 +1934,10 @@ class RoomClient {
                 background: swalBackground,
                 position: 'center',
                 icon: 'question',
-                text: 'Do you want to share your screen?',
+                text: 'Você quer compartilhar sua tela?',
                 showDenyButton: true,
-                confirmButtonText: `Yes`,
-                denyButtonText: `No`,
+                confirmButtonText: `Sim`,
+                denyButtonText: `Não`,
                 showClass: {
                     popup: 'animate__animated animate__fadeInDown',
                 },
@@ -2899,11 +2899,11 @@ class RoomClient {
         Swal.fire({
             background: swalBackground,
             position: 'center',
-            title: 'Delete this Message?',
+            title: 'Deletar essa mensagem?',
             imageUrl: image.delete,
             showDenyButton: true,
-            confirmButtonText: `Yes`,
-            denyButtonText: `No`,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
             showClass: {
                 popup: 'animate__animated animate__fadeInDown',
             },
@@ -3025,11 +3025,11 @@ class RoomClient {
         Swal.fire({
             background: swalBackground,
             position: 'center',
-            title: 'Clean up chat Messages?',
+            title: 'Limpar mensagem do chat?',
             imageUrl: image.delete,
             showDenyButton: true,
-            confirmButtonText: `Yes`,
-            denyButtonText: `No`,
+            confirmButtonText: `Sim`,
+            denyButtonText: `Não`,
             showClass: {
                 popup: 'animate__animated animate__fadeInDown',
             },
@@ -4345,15 +4345,15 @@ class RoomClient {
         switch (action) {
             case 'eject':
                 let ejectConfirmed = false;
-                let whoEject = data.broadcast ? 'All participants except yourself?' : 'current participant?';
+                let whoEject = data.broadcast ? 'Todos os participantes exceto você?' : 'participante atual?';
                 Swal.fire({
                     background: swalBackground,
                     position: 'center',
                     imageUrl: data.broadcast ? image.users : image.user,
-                    title: 'Eject ' + whoEject,
+                    title: 'Ejetar ' + whoEject,
                     showDenyButton: true,
-                    confirmButtonText: `Yes`,
-                    denyButtonText: `No`,
+                    confirmButtonText: `Sim`,
+                    denyButtonText: `Não`,
                     showClass: {
                         popup: 'animate__animated animate__fadeInDown',
                     },
@@ -4382,13 +4382,14 @@ class RoomClient {
                         }
                     })
                     .then(() => {
-                        if (ejectConfirmed) this.peerActionProgress(action, 'In progress, wait...', 6000, 'refresh');
+                        if (ejectConfirmed)
+                            this.peerActionProgress(action, 'Em progresso, aguarde...', 6000, 'refresh');
                     });
                 break;
             case 'mute':
             case 'hide':
                 let muteHideConfirmed = false;
-                let whoMuteHide = data.broadcast ? 'everyone except yourself?' : 'current participant?';
+                let whoMuteHide = data.broadcast ? 'todos com excessão de você?' : 'participante atual?';
                 Swal.fire({
                     background: swalBackground,
                     position: 'center',
@@ -4396,11 +4397,11 @@ class RoomClient {
                     title: action == 'mute' ? 'Mute ' + whoMuteHide : 'Hide ' + whoMuteHide,
                     text:
                         action == 'mute'
-                            ? "Once muted, you won't be able to unmute them, but they can unmute themselves at any time."
-                            : "Once hided, you won't be able to unhide them, but they can unhide themselves at any time.",
+                            ? 'Quando mutar, você não será capaz de desmutar, mas eles podem se desmutar quando quiserem.'
+                            : 'Quando escoder, você não será capaz de reativar, mas eles poderão reativar quando quiserem.',
                     showDenyButton: true,
-                    confirmButtonText: `Yes`,
-                    denyButtonText: `No`,
+                    confirmButtonText: `Sim`,
+                    denyButtonText: `Não`,
                     showClass: {
                         popup: 'animate__animated animate__fadeInDown',
                     },
@@ -4430,7 +4431,8 @@ class RoomClient {
                         }
                     })
                     .then(() => {
-                        if (muteHideConfirmed) this.peerActionProgress(action, 'In progress, wait...', 2000, 'refresh');
+                        if (muteHideConfirmed)
+                            this.peerActionProgress(action, 'Em progresso, aguarde...', 2000, 'refresh');
                     });
                 break;
             //...
