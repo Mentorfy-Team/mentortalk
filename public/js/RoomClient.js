@@ -2331,8 +2331,8 @@ class RoomClient {
                 document.documentElement.style.setProperty('--btns-top', '95%');
                 document.documentElement.style.setProperty('--btns-right', '25%');
                 document.documentElement.style.setProperty('--btns-left', '50%');
-                document.documentElement.style.setProperty('--btns-margin-left', '-300px');
-                document.documentElement.style.setProperty('--btns-width', '580px');
+                document.documentElement.style.setProperty('--btns-margin-left', '-230px');
+                document.documentElement.style.setProperty('--btns-width', '460px');
                 document.documentElement.style.setProperty('--btns-flex-direction', 'row');
                 break;
         }
@@ -3572,8 +3572,8 @@ class RoomClient {
             background: swalBackground,
             position: 'center',
             imageUrl: image.videoShare,
-            title: 'Compartilhar um vídeo ou áudio',
-            text: 'Color uma URL de vídeo ou áudio',
+            title: 'Compartilhar vídeo / áudio',
+            text: 'Color uma URL vídeo / áudio',
             input: 'text',
             showCancelButton: true,
             confirmButtonText: `Share`,

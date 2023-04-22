@@ -1633,7 +1633,7 @@ function showButtons() {
 
 function checkButtonsBar() {
     if (!isButtonsBarOver) {
-        //toggleClassElements('videoMenuBar', 'none');
+        toggleClassElements('videoMenuBar', 'none');
         //control.style.display = 'none';
         isButtonsVisible = false;
     }

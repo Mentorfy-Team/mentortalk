@@ -61,8 +61,8 @@
     --btns-top: 95%;
     --btns-right: 25%;
     --btns-left: 50%;
-    --btns-margin-left: -300px;
-    --btns-width: 580px;
+    --btns-margin-left: -230px;
+    --btns-width: 460px;
     --btns-flex-direction: row;
     
     --vmi-wh: 15vw;
@@ -313,7 +313,7 @@ body {
 .settingsTable td,
 th {
     text-align: left;
-    padding: 10px;
+    padding: 6px 0;
 }
 .settingsTable tr:nth-child(even) {
     /* background-color: #121212; */
@@ -321,6 +321,17 @@ th {
 .settingsTable i {
     border: var(--border);
     border-radius: 5px;
+}
+.settingsTable label {
+    width: 200px;
+}
+
+#sessionTime {
+    width: 100px;
+}
+
+.form-check-input {
+    margin-left: 50px !important;
 }
 
 #sessionTime {
@@ -380,6 +391,10 @@ th {
 .tabcontent button:hover {
     background-color: #121212;
     transform: scale(1);
+}
+
+.tabcontent p {
+    margin-bottom: auto !important;
 }
 
 /* on open display devices tab */
