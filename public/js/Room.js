@@ -491,7 +491,7 @@ function whoAreYou() {
         inputPlaceholder: 'Digite seu nome',
         inputValue: default_name,
         html: initUser, // Inject HTML
-        confirmButtonText: `Entrar na Reunião`,
+        confirmButtonText: `Entrar`,
         showClass: {
             popup: 'animate__animated animate__fadeIn',
         },
@@ -603,7 +603,7 @@ async function shareRoom(useNavigator = false) {
     if (navigator.share && useNavigator) {
         try {
             await navigator.share({ url: RoomURL });
-            userLog('info', 'Room Shared successfully', 'top-end');
+            userLog('info', 'Sala compartilhada com sucesso', 'top-end');
         } catch (err) {
             // share();
         }
@@ -680,7 +680,7 @@ function copyRoomURL() {
     tmpInput.setSelectionRange(0, 99999); // For mobile devices
     navigator.clipboard.writeText(tmpInput.value);
     document.body.removeChild(tmpInput);
-    userLog('info', 'Meeting URL copied to clipboard 👍', 'top-end');
+    userLog('info', 'URL do meeting copiado 👍', 'top-end');
 }
 
 function shareRoomByEmail(message) {
@@ -1215,7 +1215,7 @@ async function changeCamera(deviceId) {
         })
         .catch((err) => {
             console.error('[Error] changeCamera', err);
-            userLog('error', 'Error while swapping camera' + err, 'top-end');
+            userLog('error', 'Erro ao trocar a camera' + err, 'top-end');
         });
 }
 
@@ -1310,9 +1310,9 @@ function handleSelects() {
         sound('switch');
         rc.showChatOnMessage = e.currentTarget.checked;
         if (rc.showChatOnMessage) {
-            userLog('info', "Chat will be shown, when I'm receive a new message", 'top-end');
+            userLog('info', 'Chat será mostrado, quando eu receber uma mensagem', 'top-end');
         } else {
-            userLog('info', "Chat not will be shown, when I'm receive a new message", 'top-end');
+            userLog('info', 'Chat não será mostrado, quando eu receber uma mensagem', 'top-end');
         }
     };
     // whiteboard options
@@ -1516,7 +1516,13 @@ function handleRoomClientEvents() {
         if (surveyActive) {
             leaveFeedback();
         } else {
-            openURL('/newroom');
+            //openURL('/newroom');
+            // não não tiver paginas no historico para voltar, fecha a janela
+            if (history.length == 1) {
+                window.close();
+            } else {
+                history.back();
+            }
         }
     });
 }
@@ -1816,7 +1822,7 @@ function whiteboardAddObj(type) {
                             addWbCanvasObj(myImg);
                         });
                     } else {
-                        userLog('error', 'The URL is not a valid image', 'top-end');
+                        userLog('error', 'A URL não é uma imagem válida', 'top-end');
                     }
                 }
             });
@@ -1857,7 +1863,7 @@ function whiteboardAddObj(type) {
                         };
                         reader.readAsDataURL(wbCanvasImg);
                     } else {
-                        userLog('error', 'File not selected or empty', 'top-end');
+                        userLog('error', 'Arquivo não selecionado ou vazio', 'top-end');
                     }
                 }
             });
@@ -2059,7 +2065,7 @@ function whiteboardAction(data, emit = true) {
     } else {
         userLog(
             'info',
-            `${data.peer_name} <i class="fas fa-chalkboard-teacher"></i> whiteboard action: ${data.action}`,
+            `Ação de ${data.peer_name} <i class="fas fa-chalkboard-teacher"></i> no quadro : ${data.action}`,
             'top-end',
         );
     }

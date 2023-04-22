@@ -343,11 +343,11 @@ class RoomClient {
             device = new this.mediasoupClient.Device();
         } catch (error) {
             if (error.name === 'UnsupportedError') {
-                console.error('Browser not supported');
-                this.userLog('error', 'Browser not supported', 'center');
+                console.error('Navegador não suportado');
+                this.userLog('error', 'Navegador não suportado', 'center');
             }
-            console.error('Browser not supported: ', error);
-            this.userLog('error', 'Browser not supported: ' + error, 'center');
+            console.error('Navegador não suportado: ', error);
+            this.userLog('error', 'Navegador não suportado: ' + error, 'center');
         }
         await device.load({
             routerRtpCapabilities,
@@ -919,7 +919,7 @@ class RoomClient {
                 this.sound('alert');
                 this.userLog(
                     'error',
-                    `Your device doesn't support the selected video quality (${videoQuality.value}), please select the another one.`,
+                    `Seu dispositivo não suporta a qualidade de vídeo selecionado (${videoQuality.value}), por favor selecione outro.`,
                     'top-end',
                 );
             }
@@ -1304,7 +1304,7 @@ class RoomClient {
                 p = document.createElement('p');
                 p.id = this.peer_id + '__name';
                 p.className = html.userName;
-                p.innerHTML = this.peer_name + ' (me)';
+                p.innerHTML = this.peer_name + ' (eu)';
                 i = document.createElement('i');
                 i.id = this.peer_id + '__hand';
                 i.className = html.userHand;
@@ -1860,7 +1860,7 @@ class RoomClient {
         p = document.createElement('p');
         p.id = peer_id + '__name';
         p.className = html.userName;
-        p.innerHTML = peer_name + (remotePeer ? '' : ' (me) ');
+        p.innerHTML = peer_name + (remotePeer ? '' : ' (eu) ');
         h = document.createElement('i');
         h.id = peer_id + '__hand';
         h.className = html.userHand;
@@ -2374,7 +2374,7 @@ class RoomClient {
             this.setTippy(fsId, 'Full screen', 'top');
             btnFs.addEventListener('click', () => {
                 if (videoPlayer.classList.contains('videoCircle')) {
-                    return userLog('info', 'Full Screen not allowed if video on privacy mode', 'top-end');
+                    return userLog('info', 'Fullscreen não é permitido se estiver no modo privacidade', 'top-end');
                 }
                 videoPlayer.style.pointerEvents = this.isVideoOnFullScreen ? 'auto' : 'none';
                 this.toggleFullScreen(videoPlayer);
@@ -2384,7 +2384,7 @@ class RoomClient {
         if (videoPlayer) {
             videoPlayer.addEventListener('click', () => {
                 if (videoPlayer.classList.contains('videoCircle')) {
-                    return userLog('info', 'Full Screen not allowed if video on privacy mode', 'top-end');
+                    return userLog('info', 'Fullscreen não é permitido se estiver no modo privacidade', 'top-end');
                 }
                 if (!videoPlayer.hasAttribute('controls')) {
                     if ((this.isMobileDevice && this.isVideoOnFullScreen) || !this.isMobileDevice) {
@@ -2552,7 +2552,7 @@ class RoomClient {
         if (btnTs && videoPlayer) {
             btnTs.addEventListener('click', () => {
                 if (videoPlayer.classList.contains('videoCircle')) {
-                    return this.userLog('info', 'SnapShoot not allowed if video on privacy mode', 'top-end');
+                    return this.userLog('info', 'Print não é permitido se estiver no modo privacidade', 'top-end');
                 }
                 this.sound('snapshot');
                 let context, canvas, width, height, dataURL;
@@ -2721,7 +2721,7 @@ class RoomClient {
         if (!this.thereIsParticipants() && !isChatGPTOn) {
             this.cleanMessage();
             isChatPasteTxt = false;
-            return this.userLog('info', 'No participants in the room', 'top-end');
+            return this.userLog('info', 'Sem participantes na sala', 'top-end');
         }
         let peer_msg = this.formatMsg(chatMessage.value.trim());
         if (!peer_msg) {
@@ -2776,7 +2776,7 @@ class RoomClient {
         if (!this.thereIsParticipants()) {
             isChatPasteTxt = false;
             this.cleanMessage();
-            return this.userLog('info', 'No participants in the room except you', 'top-end');
+            return this.userLog('info', 'Sem participantes na sala, exceto você', 'top-end');
         }
         Swal.fire({
             background: swalBackground,
@@ -2837,7 +2837,7 @@ class RoomClient {
             data.to_peer_name,
         );
         if (!this.showChatOnMessage) {
-            this.userLog('info', `💬 New message from: ${data.peer_name}`, 'top-end');
+            this.userLog('info', `💬 Nova mensagem de: ${data.peer_name}`, 'top-end');
         }
         this.sound('message');
     }
@@ -2923,7 +2923,7 @@ class RoomClient {
         navigator.clipboard
             .writeText(text)
             .then(() => {
-                this.userLog('success', 'Message copied!', 'top-end', 1000);
+                this.userLog('success', 'Mensagem copiada!', 'top-end', 1000);
             })
             .catch((err) => {
                 this.userLog('error', err, 'top-end', 2000);
@@ -3020,7 +3020,7 @@ class RoomClient {
 
     chatClean() {
         if (this.chatMessages.length === 0) {
-            return userLog('info', 'No chat messages to clean', 'top-end');
+            return userLog('info', 'Sem mensagem para apagar', 'top-end');
         }
         Swal.fire({
             background: swalBackground,
@@ -3051,7 +3051,7 @@ class RoomClient {
 
     chatSave() {
         if (this.chatMessages.length === 0) {
-            return userLog('info', 'No chat messages to save', 'top-end');
+            return userLog('info', 'Sem mensagem no chat para salvar', 'top-end');
         }
         saveObjToJsonFile(this.chatMessages, 'CHAT');
     }
@@ -3105,12 +3105,12 @@ class RoomClient {
                     })
                     .catch((err) => {
                         console.error('Error Unable to recording the screen + audio', err);
-                        this.userLog('error', 'Unable to recording the screen + audio reason: ' + err, 'top-end');
+                        this.userLog('error', 'Não é possivel gravar vídeo e áudio, razão: ' + err, 'top-end');
                     });
             }
         } catch (err) {
             console.error('Exception while creating MediaRecorder: ', err);
-            return this.userLog('error', "Can't start stream recording reason: " + err, 'top-end');
+            return this.userLog('error', 'Não é possivel iniciar a gravação, razão: ' + err, 'top-end');
         }
     }
 
@@ -3223,19 +3223,23 @@ class RoomClient {
             videoPlayer.addEventListener('drop', function (e) {
                 e.preventDefault();
                 if (itsMe) {
-                    return userLog('warning', 'You cannot send files to yourself.', 'top-end');
+                    return userLog('warning', 'Você não pode enviar arquivo para você mesmo.', 'top-end');
                 }
                 if (this.sendInProgress) {
-                    return userLog('warning', 'Please wait for the previous file to be sent.', 'top-end');
+                    return userLog('warning', 'Por favor aguarde o arquivo anterior ser enviado.', 'top-end');
                 }
                 if (e.dataTransfer.items && e.dataTransfer.items.length > 1) {
-                    return userLog('warning', 'Please drag and drop a single file.', 'top-end');
+                    return userLog('warning', 'Por favor, arraste e solte apenas um arquivo.', 'top-end');
                 }
                 if (e.dataTransfer.items) {
                     let item = e.dataTransfer.items[0].webkitGetAsEntry();
                     console.log('Drag and drop', item);
                     if (item.isDirectory) {
-                        return userLog('warning', 'Please drag and drop a single file not a folder.', 'top-end');
+                        return userLog(
+                            'warning',
+                            'Por favor, arraste e solte apenas um arquivo, não uma pasta.',
+                            'top-end',
+                        );
                     }
                     var file = e.dataTransfer.items[0].getAsFile();
                     rc.sendFileInformations(file, peer_id);
@@ -3282,10 +3286,11 @@ class RoomClient {
         //
         if (this.fileToSend && this.fileToSend.size > 0) {
             if (!this.thereIsParticipants()) {
-                return userLog('info', 'No participants detected', 'top-end');
+                return userLog('info', 'Nenhum participante detectado', 'top-end');
             }
             // prevent XSS injection
-            if (this.isHtml(this.fileToSend.name)) return userLog('warning', 'Invalid file name!', 'top-end', 5000);
+            if (this.isHtml(this.fileToSend.name))
+                return userLog('warning', 'Nome de arquivo inválido!', 'top-end', 5000);
 
             const fileInfo = {
                 peer_id: peer_id,
@@ -3315,7 +3320,7 @@ class RoomClient {
                 this.sendFileData(peer_id, broadcast);
             }, 1000);
         } else {
-            userLog('error', 'File not selected or empty.', 'top-end');
+            userLog('error', 'Arquivo não selecionado ou inválido.', 'top-end');
         }
     }
 
@@ -3404,7 +3409,7 @@ class RoomClient {
             if (offset === this.fileToSend.size) {
                 this.sendInProgress = false;
                 sendFileDiv.style.display = 'none';
-                userLog('success', 'The file ' + this.fileToSend.name + ' was sent successfully.', 'top-end');
+                userLog('success', 'O arquivo ' + this.fileToSend.name + ' foi enviado com sucesso.', 'top-end');
             }
 
             if (offset < this.fileToSend.size) readSlice(offset);
@@ -3442,7 +3447,7 @@ class RoomClient {
         this.receiveInProgress = false;
         receiveFileDiv.style.display = 'none';
         console.log(data.peer_name + ' aborted the file transfer');
-        userLog('info', data.peer_name + ' ⚠️ aborted the file transfer', 'top-end');
+        userLog('info', data.peer_name + ' ⚠️ abortado transferencia de arquivo', 'top-end');
     }
 
     handleFile(data) {
@@ -3580,10 +3585,10 @@ class RoomClient {
         }).then((result) => {
             if (result.value) {
                 if (!this.thereIsParticipants()) {
-                    return userLog('info', 'No participants detected', 'top-end');
+                    return userLog('info', 'Nenhum participante detectado', 'top-end');
                 }
                 if (!this.isVideoTypeSupported(result.value)) {
-                    return userLog('warning', 'Something wrong, try with another Video or audio URL');
+                    return userLog('warning', 'Algo deu errado, tente outra URL de vídeo ou áudio');
                 }
                 /*
                     https://www.youtube.com/watch?v=RT6_Id5-7-s
@@ -3604,7 +3609,7 @@ class RoomClient {
                     this.socket.emit('shareVideoAction', data);
                     this.openVideo(data);
                 } else {
-                    this.userLog('error', 'Not valid video URL', 'top-end');
+                    this.userLog('error', 'URL de vídeo não é válido', 'top-end');
                 }
             }
         });
@@ -3641,11 +3646,11 @@ class RoomClient {
         let action = data.action;
         switch (action) {
             case 'open':
-                this.userLog('info', `${peer_name} <i class="fab fa-youtube"></i> opened the video`, 'top-end');
+                this.userLog('info', `${peer_name} <i class="fab fa-youtube"></i> abriu o vídeo`, 'top-end');
                 this.openVideo(data);
                 break;
             case 'close':
-                this.userLog('info', `${peer_name} <i class="fab fa-youtube"></i> closed the video`, 'top-end');
+                this.userLog('info', `${peer_name} <i class="fab fa-youtube"></i> fechou o vídeo`, 'top-end');
                 this.closeVideo();
                 break;
         }
@@ -3819,19 +3824,19 @@ class RoomClient {
             case 'lock':
                 this.sound('locked');
                 this.event(_EVENTS.roomLock);
-                this.userLog('info', `${icons.lock} LOCKED the room by the password`, 'top-end');
+                this.userLog('info', `${icons.lock} PROTEGEU a sala com senha`, 'top-end');
                 break;
             case 'unlock':
                 this.event(_EVENTS.roomUnlock);
-                this.userLog('info', `${icons.unlock} UNLOCKED the room`, 'top-end');
+                this.userLog('info', `${icons.unlock} LIBEROU o acesso livre a sala`, 'top-end');
                 break;
             case 'lobbyOn':
                 this.event(_EVENTS.lobbyOn);
-                this.userLog('info', `${icons.lobby} Lobby is enabled`, 'top-end');
+                this.userLog('info', `${icons.lobby} Sala de espera habilitado`, 'top-end');
                 break;
             case 'lobbyOff':
                 this.event(_EVENTS.lobbyOff);
-                this.userLog('info', `${icons.lobby} Lobby is disabled`, 'top-end');
+                this.userLog('info', `${icons.lobby} Sala de espera desativada`, 'top-end');
                 break;
             default:
                 break;
@@ -3843,11 +3848,11 @@ class RoomClient {
         switch (action) {
             case 'pitchBar':
                 this.sound('switch');
-                this.userLog('info', `${icons.pitchBar} Audio pitch bar ${status}`, 'top-end');
+                this.userLog('info', `${icons.pitchBar} Barra de volume ${status}`, 'top-end');
                 break;
             case 'sounds':
                 this.sound('switch');
-                this.userLog('info', `${icons.sounds} Sounds notification ${status}`, 'top-end');
+                this.userLog('info', `${icons.sounds} Sons de notificação ${status}`, 'top-end');
                 break;
             default:
                 break;
@@ -3900,13 +3905,13 @@ class RoomClient {
                         setTippy(lobbyAcceptId, 'Accept', 'top');
                         setTippy(lobbyRejectId, 'Reject', 'top');
                     }
-                    this.userLog('info', peer_name + ' wants to join the meeting', 'top-end');
+                    this.userLog('info', peer_name + ' quer entrar na reunião', 'top-end');
                 }
                 break;
             case 'accept':
                 this.joinAllowed(data.room);
                 control.style.display = 'flex';
-                this.msgPopup('info', 'Your join meeting was be accepted by moderator');
+                this.msgPopup('info', 'Sua entrada foi aceita pelo moderador da reunião');
                 break;
             case 'reject':
                 this.sound('eject');
@@ -3918,7 +3923,7 @@ class RoomClient {
                     showConfirmButton: true,
                     background: swalBackground,
                     title: 'Rejected',
-                    text: 'Your join meeting was be rejected by moderator',
+                    text: 'Sua entrada para a reunião foi recusada pelo moderador',
                     confirmButtonText: `Ok`,
                     showClass: {
                         popup: 'animate__animated animate__fadeInDown',
@@ -3950,7 +3955,7 @@ class RoomClient {
         const trElem = this.getId(peer_id);
         trElem.parentNode.removeChild(trElem);
         lobbyParticipantsCount--;
-        lobbyHeaderTitle.innerText = 'Lobby users (' + lobbyParticipantsCount + ')';
+        lobbyHeaderTitle.innerText = 'Usuários na sala de espera (' + lobbyParticipantsCount + ')';
         if (lobbyParticipantsCount == 0) this.lobbyToggle();
     }
 
@@ -3960,7 +3965,7 @@ class RoomClient {
             this.socket.emit('roomLobby', data);
             this.lobbyRemoveAll();
         } else {
-            this.userLog('info', 'No participants in lobby detected', 'top-end');
+            this.userLog('info', 'Nenhum participante detectado na sala de espera', 'top-end');
         }
     }
 
@@ -3970,7 +3975,7 @@ class RoomClient {
             this.socket.emit('roomLobby', data);
             this.lobbyRemoveAll();
         } else {
-            this.userLog('info', 'No participants in lobby detected', 'top-end');
+            this.userLog('info', 'Nenhum participante detectado na sala de espera', 'top-end');
         }
     }
 
@@ -3985,7 +3990,7 @@ class RoomClient {
                 lobbyParticipantsCount--;
             }
         }
-        lobbyHeaderTitle.innerText = 'Lobby users (' + lobbyParticipantsCount + ')';
+        lobbyHeaderTitle.innerText = 'Usuários na sala de espera (' + lobbyParticipantsCount + ')';
         if (lobbyParticipantsCount == 0) this.lobbyToggle();
     }
 
@@ -4000,7 +4005,7 @@ class RoomClient {
                 lobbyParticipantsCount--;
             }
         }
-        lobbyHeaderTitle.innerText = 'Lobby users (' + lobbyParticipantsCount + ')';
+        lobbyHeaderTitle.innerText = 'Usuários na sala de espera (' + lobbyParticipantsCount + ')';
         if (lobbyParticipantsCount == 0) this.lobbyToggle();
     }
 
@@ -4061,9 +4066,9 @@ class RoomClient {
                 allowEscapeKey: false,
                 background: swalBackground,
                 imageUrl: image.locked,
-                title: 'Oops, Room is Locked',
+                title: 'Oops, essa reunião está protegida por senha',
                 input: 'text',
-                inputPlaceholder: 'Enter the Room password',
+                inputPlaceholder: 'Entre com a senha da reunião',
                 confirmButtonText: `OK`,
                 showClass: {
                     popup: 'animate__animated animate__fadeInDown',
@@ -4095,7 +4100,7 @@ class RoomClient {
             position: 'center',
             imageUrl: image.locked,
             title: 'Oops, Wrong Room Password',
-            text: 'The room is locked, try with another one.',
+            text: 'A sala está fechada, tente com outra.',
             showDenyButton: false,
             confirmButtonText: `Ok`,
             showClass: {
@@ -4118,10 +4123,10 @@ class RoomClient {
             showConfirmButton: false,
             background: swalBackground,
             imageUrl: image.poster,
-            title: 'Room has lobby enabled',
-            text: 'Asking to join meeting...',
+            title: 'A reunião tem sala de espera',
+            text: 'Pedindo para entrar...',
             confirmButtonText: `Ok`,
-            denyButtonText: `Leave room`,
+            denyButtonText: `Sair da sala`,
             showClass: {
                 popup: 'animate__animated animate__fadeInDown',
             },
@@ -4272,7 +4277,7 @@ class RoomClient {
             };
 
             if (!this.thereIsParticipants()) {
-                if (info) return this.userLog('info', 'No participants detected', 'top-end');
+                if (info) return this.userLog('info', 'Nenhum participante detectado', 'top-end');
             }
             this.confirmPeerAction(action, data);
         } else {
@@ -4289,7 +4294,7 @@ class RoomClient {
                         this.updatePeerInfo(this.peer_name, this.peer_id, 'audio', false);
                         this.userLog(
                             'warning',
-                            from_peer_name + '  ' + _PEER.audioOff + ' has closed yours audio',
+                            from_peer_name + '  ' + _PEER.audioOff + ' fechou o seu áudio',
                             'top-end',
                             10000,
                         );
@@ -4300,7 +4305,7 @@ class RoomClient {
                         this.closeProducer(mediaType.video);
                         this.userLog(
                             'warning',
-                            from_peer_name + '  ' + _PEER.videoOff + ' has closed yours video',
+                            from_peer_name + '  ' + _PEER.videoOff + ' fechou o seu vídeo',
                             'top-end',
                             10000,
                         );
@@ -4501,7 +4506,7 @@ class RoomClient {
                         if (peer_hand) peer_hand.style.display = 'flex';
                         this.userLog(
                             'warning',
-                            peer_name + '  ' + _PEER.raiseHand + ' has raised the hand',
+                            peer_name + '  ' + _PEER.raiseHand + ' levantou a mão',
                             'top-end',
                             10000,
                         );
