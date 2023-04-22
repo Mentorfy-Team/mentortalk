@@ -2246,22 +2246,22 @@ async function getParticipantsTable(peers) {
 function setParticipantsTippy(peers) {
     //
     if (!DetectRTC.isMobileDevice) {
-        setTippy('muteAllButton', 'Mute all participants', 'top');
-        setTippy('hideAllButton', 'Hide all participants', 'top');
-        setTippy('sendAllButton', 'Share file to all', 'top');
-        setTippy('sendMessageToAll', 'Send message to all', 'top');
-        setTippy('sendVideoToAll', 'Share video to all', 'top');
-        setTippy('ejectAllButton', 'Eject all participants', 'top');
+        setTippy('muteAllButton', 'Mutar todos participantes', 'top');
+        setTippy('hideAllButton', 'Esconder todos participantes', 'top');
+        setTippy('sendAllButton', 'Compartilhar arquivo com todos', 'top');
+        setTippy('sendMessageToAll', 'Enviar mensagem para todos', 'top');
+        setTippy('sendVideoToAll', 'Compartilhar vídeo com todos', 'top');
+        setTippy('ejectAllButton', 'Ejetar todos participantes', 'top');
         //
         for (let peer of Array.from(peers.keys())) {
             let peer_info = peers.get(peer).peer_info;
             let peer_id = peer_info.peer_id;
-            setTippy(peer_id + '___pAudio', 'Mute', 'top');
-            setTippy(peer_id + '___pVideo', 'Hide', 'top');
-            setTippy(peer_id + '___shareFile', 'Share file', 'top');
-            setTippy(peer_id + '___sendMessageTo', 'Send private message', 'top');
-            setTippy(peer_id + '___sendVideoTo', 'Share video', 'top');
-            setTippy(peer_id + '___pEject', 'Eject', 'top');
+            setTippy(peer_id + '___pAudio', 'Mutar', 'top');
+            setTippy(peer_id + '___pVideo', 'Esconder', 'top');
+            setTippy(peer_id + '___shareFile', 'Compartilhar arquivo', 'top');
+            setTippy(peer_id + '___sendMessageTo', 'Enviar mensagem privada', 'top');
+            setTippy(peer_id + '___sendVideoTo', 'Compartilhar vídeo', 'top');
+            setTippy(peer_id + '___pEject', 'Ejetar', 'top');
         }
     }
 }

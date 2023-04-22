@@ -3330,28 +3330,28 @@ class RoomClient {
         this.receiveBuffer = [];
         this.receivedSize = 0;
         let fileToReceiveInfo =
-            ' From: ' +
+            ' De: ' +
             this.incomingFileInfo.peer_name +
             html.newline +
-            ' Incoming file: ' +
+            ' Arquivo chegando: ' +
             this.incomingFileInfo.fileName +
             html.newline +
-            ' File type: ' +
+            ' Tipo de arquivo: ' +
             this.incomingFileInfo.fileType +
             html.newline +
-            ' File size: ' +
+            ' Tamanho do arquivo: ' +
             this.bytesToSize(this.incomingFileInfo.fileSize);
         this.appendMessage(
             'left',
             this.leftMsgAvatar,
             this.incomingFileInfo.peer_name,
             this.incomingFileInfo.peer_id,
-            `${icons.fileReceive} File receive: 
+            `${icons.fileReceive} Arquivo recebido: 
             <br/> 
             <ul>
-                <li>From: ${this.incomingFileInfo.peer_name}</li>
-                <li>Name: ${this.incomingFileInfo.fileName}</li>
-                <li>Size: ${this.bytesToSize(this.incomingFileInfo.fileSize)}</li>
+                <li>De: ${this.incomingFileInfo.peer_name}</li>
+                <li>Nome: ${this.incomingFileInfo.fileName}</li>
+                <li>Tamanho: ${this.bytesToSize(this.incomingFileInfo.fileSize)}</li>
             </ul>`,
             'all',
             'all',
@@ -3373,13 +3373,13 @@ class RoomClient {
         this.sendInProgress = true;
 
         sendFileInfo.innerHTML =
-            'File name: ' +
+            'Nome do arquivo: ' +
             this.fileToSend.name +
             html.newline +
-            'File type: ' +
+            'Tipo de arquivo: ' +
             this.fileToSend.type +
             html.newline +
-            'File size: ' +
+            'Tamanho do arquivo: ' +
             this.bytesToSize(this.fileToSend.size) +
             html.newline;
 
@@ -3403,7 +3403,8 @@ class RoomClient {
             offset += data.fileData.byteLength;
 
             sendProgress.value = offset;
-            sendFilePercentage.innerHTML = 'Send progress: ' + ((offset / this.fileToSend.size) * 100).toFixed(2) + '%';
+            sendFilePercentage.innerHTML =
+                'Progresso do envio: ' + ((offset / this.fileToSend.size) * 100).toFixed(2) + '%';
 
             // send file completed
             if (offset === this.fileToSend.size) {
@@ -3456,7 +3457,7 @@ class RoomClient {
         this.receivedSize += data.fileData.byteLength;
         receiveProgress.value = this.receivedSize;
         receiveFilePercentage.innerHTML =
-            'Receive progress: ' + ((this.receivedSize / this.incomingFileInfo.fileSize) * 100).toFixed(2) + '%';
+            'Progresso recebido: ' + ((this.receivedSize / this.incomingFileInfo.fileSize) * 100).toFixed(2) + '%';
         if (this.receivedSize === this.incomingFileInfo.fileSize) {
             receiveFileDiv.style.display = 'none';
             this.incomingFileData = this.receiveBuffer;
@@ -3482,13 +3483,13 @@ class RoomClient {
                     allowOutsideClick: false,
                     background: swalBackground,
                     position: 'center',
-                    title: 'Received file',
+                    title: 'Arquivo recebido',
                     text: this.incomingFileInfo.fileName + ' size ' + this.bytesToSize(this.incomingFileInfo.fileSize),
                     imageUrl: e.target.result,
                     imageAlt: 'mirotalksfu-file-img-download',
                     showDenyButton: true,
-                    confirmButtonText: `Save`,
-                    denyButtonText: `Cancel`,
+                    confirmButtonText: `Salvar`,
+                    denyButtonText: `Cancelar`,
                     showClass: {
                         popup: 'animate__animated animate__fadeInDown',
                     },
@@ -3507,11 +3508,11 @@ class RoomClient {
                 allowOutsideClick: false,
                 background: swalBackground,
                 position: 'center',
-                title: 'Received file',
+                title: 'Arquivo recebido',
                 text: this.incomingFileInfo.fileName + ' size ' + this.bytesToSize(this.incomingFileInfo.fileSize),
                 showDenyButton: true,
-                confirmButtonText: `Save`,
-                denyButtonText: `Cancel`,
+                confirmButtonText: `Salvar`,
+                denyButtonText: `Cancelar`,
                 showClass: {
                     popup: 'animate__animated animate__fadeInDown',
                 },
