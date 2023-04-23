@@ -2850,7 +2850,7 @@ class RoomClient {
     appendMessage(side, img, fromName, fromId, msg, toId, toName) {
         let time = this.getTimeNow();
         let msgBubble = toId == 'all' ? 'msg-bubble' : 'msg-bubble-private';
-        let replyMsg = fromId === this.peer_id ? `<hr/>Private message to ${toName}` : '';
+        let replyMsg = fromId === this.peer_id ? `<hr/>Mensagem privada para: ${toName}` : '';
         let message = toId == 'all' ? msg : msg + replyMsg;
         let msgHTML = `
         <div id="msg-${chatMessagesId}" class="msg ${side}-msg">
@@ -2889,9 +2889,9 @@ class RoomClient {
         this.collectMessages(time, fromName, msg);
         chatMsger.insertAdjacentHTML('beforeend', msgHTML);
         chatMsger.scrollTop += 500;
-        this.setTippy('msg-delete-' + chatMessagesId, 'Delete', 'top');
-        this.setTippy('msg-copy-' + chatMessagesId, 'Copy', 'top');
-        this.setTippy('msg-private-reply-' + chatMessagesId, 'Reply', 'top');
+        this.setTippy('msg-delete-' + chatMessagesId, 'Deletar', 'top');
+        this.setTippy('msg-copy-' + chatMessagesId, 'Copiar', 'top');
+        this.setTippy('msg-private-reply-' + chatMessagesId, 'Responder', 'top');
         chatMessagesId++;
     }
 
