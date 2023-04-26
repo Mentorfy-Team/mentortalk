@@ -4,16 +4,18 @@ const util = require('util');
 
 const colors = require('colors');
 
-colors.enable(); //colors.disable();
+const config = require('./config');
+
+config.console.colors ? colors.enable() : colors.disable();
 
 const options = {
     depth: null,
     colors: true,
 };
 module.exports = class Logger {
-    constructor(appName = 'miroTalkSfu', debugOn = true) {
+    constructor(appName = 'miroTalkSfu') {
         this.appName = colors.yellow(appName);
-        this.debugOn = debugOn;
+        this.debugOn = config.console.debug;
         this.timeStart = Date.now();
         this.timeEnd = null;
         this.timeElapsedMs = null;

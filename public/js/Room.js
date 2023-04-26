@@ -11,7 +11,7 @@ if (location.href.substr(0, 5) !== 'https') location.href = 'https' + location.h
  * @license For commercial or closed source, contact us at license.mirotalk@gmail.com or purchase directly via CodeCanyon
  * @license CodeCanyon: https://codecanyon.net/item/mirotalk-sfu-webrtc-realtime-video-conferences/40769970
  * @author  Miroslav Pejic - miroslav.pejic.85@gmail.com
- * @version 1.0.4
+ * @version 1.0.5
  *
  */
 
@@ -71,6 +71,7 @@ let chatMessagesId = 0;
 let room_id = getRoomId();
 let room_password = getRoomPassword();
 let peer_name = getPeerName();
+let peer_uuid = getPeerUUID();
 let isScreenAllowed = getScreen();
 let notify = getNotify();
 
@@ -355,13 +356,13 @@ function addChild(device, els) {
         option.value = device.deviceId;
         switch (kind) {
             case 'videoinput':
-                option.innerHTML = `📹 ` + device.label || `📹 camera ${el.length + 1}`;
+                option.innerText = `📹 ` + device.label || `📹 camera ${el.length + 1}`;
                 break;
             case 'audioinput':
-                option.innerHTML = `🎤 ` + device.label || `🎤 microphone ${el.length + 1}`;
+                option.innerText = `🎤 ` + device.label || `🎤 microphone ${el.length + 1}`;
                 break;
             case 'audiooutput':
-                option.innerHTML = `🔈 ` + device.label || `🔈 speaker ${el.length + 1}`;
+                option.innerText = `🔈 ` + device.label || `🔈 speaker ${el.length + 1}`;
                 break;
             default:
                 break;
@@ -415,6 +416,15 @@ function getPeerName() {
     return name;
 }
 
+function getPeerUUID() {
+    if (lS.getItemLocalStorage('peer_uuid')) {
+        return lS.getItemLocalStorage('peer_uuid');
+    }
+    const peer_uuid = getUUID();
+    lS.setItemLocalStorage('peer_uuid', peer_uuid);
+    return peer_uuid;
+}
+
 function getRoomPassword() {
     let qs = new URLSearchParams(window.location.search);
     let roomPassword = filterXSS(qs.get('password'));
@@ -435,7 +445,7 @@ function getRoomPassword() {
 function getPeerInfo() {
     peer_info = {
         join_data_time: getDataTimeString(),
-        peer_uuid: getUUID(),
+        peer_uuid: peer_uuid,
         peer_id: socket.id,
         peer_name: peer_name,
         peer_presenter: isPresenter,
@@ -708,6 +718,7 @@ function joinRoom(peer_name, room_id) {
             socket,
             room_id,
             peer_name,
+            peer_uuid,
             peer_info,
             isAudioAllowed,
             isVideoAllowed,
@@ -817,7 +828,7 @@ function startSessionTimer() {
     let callStartTime = Date.now();
     setInterval(function printTime() {
         let callElapsedTime = Date.now() - callStartTime;
-        sessionTime.innerHTML = getTimeToString(callElapsedTime);
+        sessionTime.innerText = getTimeToString(callElapsedTime);
     }, 1000);
 }
 
@@ -854,7 +865,7 @@ function startRecordingTimer() {
     recTimer = setInterval(function printTime() {
         if (rc.isRecording()) {
             recElapsedTime++;
-            recordingStatus.innerHTML = secondsToHms(recElapsedTime);
+            recordingStatus.innerText = secondsToHms(recElapsedTime);
         }
     }, 1000);
 }
@@ -1509,7 +1520,7 @@ function handleRoomClientEvents() {
     });
     rc.on(RoomClient.EVENTS.exitRoom, () => {
         console.log('Room Client leave room');
-        if (rc.isRecording() || recordingStatus.innerHTML != '0s') {
+        if (rc.isRecording() || recordingStatus.innerText != '0s') {
             console.log('Room Client save recording before to exit');
             rc.stopRecording();
         }
@@ -2389,11 +2400,11 @@ function showAbout() {
         html: `
         <br/>
         <div id="about">
-            <b><a href="https://github.com/miroslavpejic85/mirotalksfu" class="umami--click--github" target="_blank">Open Source</a></b> project
+            <b><a id="github-button" data-umami-event="GitHub button" href="https://github.com/miroslavpejic85/mirotalksfu" target="_blank">Open Source</a></b> project
             <br/><br />
-            <button class="pulsate umami--click--sponsors" onclick="window.open('https://github.com/sponsors/miroslavpejic85?o=esb')"><i class="fas fa-heart"></i> Support</button>
+            <button id="sponsor-button" data-umami-event="Sponsor button" class="pulsate" onclick="window.open('https://github.com/sponsors/miroslavpejic85?o=esb')"><i class="fas fa-heart"></i> Support</button>
             <br /><br />
-            Author: <a href="https://www.linkedin.com/in/miroslav-pejic-976a07101/" class="umami--click--linkedin" target="_blank"> Miroslav Pejic</a>
+            Author: <a id="linkedin-button" data-umami-event="Linkedin button" href="https://www.linkedin.com/in/miroslav-pejic-976a07101/" target="_blank"> Miroslav Pejic</a>
         </div>
         `,
         showClass: {

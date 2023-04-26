@@ -9,7 +9,7 @@
  * @license For commercial or closed source, contact us at license.mirotalk@gmail.com or purchase directly via CodeCanyon
  * @license CodeCanyon: https://codecanyon.net/item/mirotalk-sfu-webrtc-realtime-video-conferences/40769970
  * @author  Miroslav Pejic - miroslav.pejic.85@gmail.com
- * @version 1.0.4
+ * @version 1.0.5
  *
  */
 
@@ -18,7 +18,7 @@ const cfg = {
 };
 
 const html = {
-    newline: '<br />',
+    newline: '\n', //'<br />',
     hideMeOn: 'fas fa-user-slash',
     hideMeOff: 'fas fa-user',
     audioOn: 'fas fa-microphone',
@@ -116,6 +116,7 @@ class RoomClient {
         socket,
         room_id,
         peer_name,
+        peer_uuid,
         peer_info,
         isAudioAllowed,
         isVideoAllowed,
@@ -133,6 +134,7 @@ class RoomClient {
         this.room_id = room_id;
         this.peer_id = socket.id;
         this.peer_name = peer_name;
+        this.peer_uuid = peer_uuid;
         this.peer_info = peer_info;
 
         this.isAudioAllowed = isAudioAllowed;
@@ -190,10 +192,11 @@ class RoomClient {
         this.forceVP9 = false; // Force VP9 codec for webcam and screen sharing
         this.forceH264 = false; // Force H264 codec for webcam and screen sharing
         this.enableWebcamLayers = true; // Enable simulcast or SVC for webcam
-        this.enableSharingLayers = false; // Enable simulcast or SVC for screen sharing
-        this.numSimulcastStreams = 3; // Number of streams for simulcast in webcam and screen sharing
+        this.enableSharingLayers = true; // Enable simulcast or SVC for screen sharing
+        this.numSimulcastStreamsWebcam = 3; // Number of streams for simulcast in webcam
+        this.numSimulcastStreamsSharing = 1; // Number of streams for simulcast in screen sharing
         this.webcamScalabilityMode = 'L3T3'; // Scalability Mode for webcam | 'L1T3' for VP8/H264 (in each simulcast encoding), 'L3T3_KEY' for VP9
-        this.sharingScalabilityMode = 'L3T3'; // Scalability Mode for screen sharing | 'L1T3' for VP8/H264 (in each simulcast encoding), 'L3T3' for VP9
+        this.sharingScalabilityMode = 'L1T3'; // Scalability Mode for screen sharing | 'L1T3' for VP8/H264 (in each simulcast encoding), 'L3T3' for VP9
 
         this.myVideoEl = null;
         this.myAudioEl = null;
@@ -1091,7 +1094,7 @@ class RoomClient {
             forceVP8: this.forceVP8,
             forceVP9: this.forceVP9,
             forceH264: this.forceH264,
-            numSimulcastStreams: this.numSimulcastStreams,
+            numSimulcastStreamsWebcam: this.numSimulcastStreamsWebcam,
             enableWebcamLayers: this.enableWebcamLayers,
             webcamScalabilityMode: this.webcamScalabilityMode,
         });
@@ -1131,14 +1134,14 @@ class RoomClient {
                         scalabilityMode: this.webcamScalabilityMode || 'L1T3',
                     },
                 ];
-                if (this.numSimulcastStreams > 1) {
+                if (this.numSimulcastStreamsWebcam > 1) {
                     encodings.unshift({
                         scaleResolutionDownBy: 2,
                         maxBitrate: 1000000,
                         scalabilityMode: this.webcamScalabilityMode || 'L1T3',
                     });
                 }
-                if (this.numSimulcastStreams > 2) {
+                if (this.numSimulcastStreamsWebcam > 2) {
                     encodings.unshift({
                         scaleResolutionDownBy: 4,
                         maxBitrate: 500000,
@@ -1162,7 +1165,7 @@ class RoomClient {
             forceVP8: this.forceVP8,
             forceVP9: this.forceVP9,
             forceH264: this.forceH264,
-            numSimulcastStreams: this.numSimulcastStreams,
+            numSimulcastStreamsSharing: this.numSimulcastStreamsSharing,
             enableSharingLayers: this.enableSharingLayers,
             sharingScalabilityMode: this.sharingScalabilityMode,
         });
@@ -1204,7 +1207,7 @@ class RoomClient {
                         dtx: true,
                     },
                 ];
-                if (this.numSimulcastStreams > 1) {
+                if (this.numSimulcastStreamsSharing > 1) {
                     encodings.unshift({
                         scaleResolutionDownBy: 2,
                         maxBitrate: 1000000,
@@ -1212,7 +1215,7 @@ class RoomClient {
                         dtx: true,
                     });
                 }
-                if (this.numSimulcastStreams > 2) {
+                if (this.numSimulcastStreamsSharing > 2) {
                     encodings.unshift({
                         scaleResolutionDownBy: 4,
                         maxBitrate: 500000,
@@ -1304,7 +1307,7 @@ class RoomClient {
                 p = document.createElement('p');
                 p.id = this.peer_id + '__name';
                 p.className = html.userName;
-                p.innerHTML = this.peer_name + ' (eu)';
+                p.innerText = this.peer_name + ' (eu)';
                 i = document.createElement('i');
                 i.id = this.peer_id + '__hand';
                 i.className = html.userHand;
@@ -1689,7 +1692,7 @@ class RoomClient {
                 p = document.createElement('p');
                 p.id = remotePeerId + '__name';
                 p.className = html.userName;
-                p.innerHTML = peer_name;
+                p.innerText = peer_name;
                 pm = document.createElement('div');
                 pb = document.createElement('div');
                 pm.setAttribute('id', remotePeerId + '__pitchMeter');
@@ -1860,7 +1863,7 @@ class RoomClient {
         p = document.createElement('p');
         p.id = peer_id + '__name';
         p.className = html.userName;
-        p.innerHTML = peer_name + (remotePeer ? '' : ' (eu) ');
+        p.innerText = peer_name + (remotePeer ? '' : ' (eu) ');
         h = document.createElement('i');
         h.id = peer_id + '__hand';
         h.className = html.userHand;
@@ -2723,7 +2726,8 @@ class RoomClient {
             isChatPasteTxt = false;
             return this.userLog('info', 'Sem participantes na sala', 'top-end');
         }
-        let peer_msg = this.formatMsg(chatMessage.value.trim());
+        chatMessage.value = filterXSS(chatMessage.value.trim());
+        let peer_msg = this.formatMsg(chatMessage.value);
         if (!peer_msg) {
             return this.cleanMessage();
         }
@@ -2794,7 +2798,8 @@ class RoomClient {
             },
         }).then((result) => {
             if (result.value) {
-                let peer_msg = this.formatMsg(result.value.trim());
+                result.value = filterXSS(result.value.trim());
+                let peer_msg = this.formatMsg(result.value);
                 if (!peer_msg) {
                     return this.cleanMessage();
                 }
@@ -2848,27 +2853,37 @@ class RoomClient {
     }
 
     appendMessage(side, img, fromName, fromId, msg, toId, toName) {
-        let time = this.getTimeNow();
-        let msgBubble = toId == 'all' ? 'msg-bubble' : 'msg-bubble-private';
-        let replyMsg = fromId === this.peer_id ? `<hr/>Mensagem privada para: ${toName}` : '';
-        let message = toId == 'all' ? msg : msg + replyMsg;
+        //
+        const getSide = filterXSS(side);
+        const getImg = filterXSS(img);
+        const getFromName = filterXSS(fromName);
+        const getFromId = filterXSS(fromId);
+        const getMsg = filterXSS(msg);
+        const getToId = filterXSS(toId);
+        const getToName = filterXSS(toName);
+        const time = this.getTimeNow();
+
+        const msgBubble = getToId == 'all' ? 'msg-bubble' : 'msg-bubble-private';
+        const replyMsg = getFromId === this.peer_id ? `<hr/>Mensagem privada para ${getToName}` : '';
+        const message = getToId == 'all' ? getMsg : getMsg + replyMsg;
+
         let msgHTML = `
-        <div id="msg-${chatMessagesId}" class="msg ${side}-msg">
-            <img class="msg-img" src="${img}" />
+        <div id="msg-${chatMessagesId}" class="msg ${getSide}-msg">
+            <img class="msg-img" src="${getImg}" />
             <div class=${msgBubble}>
                 <div class="msg-info">
-                    <div class="msg-info-name">${fromName}</div>
+                    <div class="msg-info-name">${getFromName}</div>
                     <div class="msg-info-time">${time}</div>
                 </div>
                 <div id="${chatMessagesId}" class="msg-text">${message}
                     <hr/>`;
         // add btn direct reply to private message
-        if (fromId != this.peer_id) {
+        if (getFromId != this.peer_id) {
             msgHTML += `
                     <button 
                         class="fas fa-paper-plane"
                         id="msg-private-reply-${chatMessagesId}"
-                        onclick="rc.sendMessageTo('${fromId}','${fromName}')"
+                        onclick="rc.sendMessageTo('${getFromId}','${getFromName}')"
                     ></button>`;
         }
         msgHTML += `                    
@@ -2886,7 +2901,7 @@ class RoomClient {
             </div>
         </div>
         `;
-        this.collectMessages(time, fromName, msg);
+        this.collectMessages(time, getFromName, getMsg);
         chatMsger.insertAdjacentHTML('beforeend', msgHTML);
         chatMsger.scrollTop += 500;
         this.setTippy('msg-delete-' + chatMessagesId, 'Deletar', 'top');
@@ -2930,31 +2945,35 @@ class RoomClient {
             });
     }
 
-    formatMsg(message) {
+    formatMsg(msg) {
+        const message = filterXSS(msg);
         if (message.trim().length == 0) return;
         if (this.isHtml(message)) return this.sanitizeHtml(message);
         if (this.isValidHttpURL(message)) {
-            if (isImageURL(message)) return '<img src="' + message + '" alt="img" width="180" height="auto"/>';
-            if (this.isVideoTypeSupported(message)) return this.getIframe(message);
-            return '<a href="' + message + '" target="_blank" class="msg-a">' + message + '</a>';
+            if (this.isImageURL(message)) return this.getImage(message);
+            //if (this.isVideoTypeSupported(message)) return this.getIframe(message);
+            return this.getLink(message);
         }
         if (isChatMarkdownOn) return marked.parse(message);
-        let pre = '<pre>' + message + '</pre>';
-        if (isChatPasteTxt) {
+        if (isChatPasteTxt && this.getLineBreaks(message) > 1) {
             isChatPasteTxt = false;
-            return pre;
+            return this.getPre(message);
         }
-        if (this.getLineBreaks(message) > 1) {
-            return pre;
-        }
+        if (this.getLineBreaks(message) > 1) return this.getPre(message);
+        console.log('FormatMsg', message);
         return message;
     }
 
-    sanitizeHtml(str) {
-        const tagsToReplace = { '&': '&amp;', '<': '&lt;', '>': '&gt;' };
-        const replaceTag = (tag) => tagsToReplace[tag] || tag;
-        const safe_tags_replace = (str) => str.replace(/[&<>]/g, replaceTag);
-        return safe_tags_replace(str);
+    sanitizeHtml(input) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;',
+            '/': '&#x2F;',
+        };
+        return input.replace(/[&<>"'/]/g, (m) => map[m]);
     }
 
     isHtml(str) {
@@ -2966,28 +2985,76 @@ class RoomClient {
         return false;
     }
 
-    isValidHttpURL(str) {
-        let url;
-        try {
-            url = new URL(str);
-        } catch (_) {
-            return false;
-        }
-        return url.protocol === 'http:' || url.protocol === 'https:';
+    isValidHttpURL(input) {
+        const pattern = new RegExp(
+            '^(https?:\\/\\/)?' + // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+                '(\\#[-a-z\\d_]*)?$',
+            'i',
+        ); // fragment locator
+        return pattern.test(input);
     }
 
-    getIframe(url) {
-        let is_youtube = this.getVideoType(url) == 'na' ? true : false;
-        let video_audio_url = is_youtube ? this.getYoutubeEmbed(url) : url;
-        return `
-        <iframe
-            title="Chat-IFrame"
-            src="${video_audio_url}"
-            width="auto"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-        ></iframe>`;
+    isImageURL(input) {
+        return input.match(/\.(jpeg|jpg|gif|png|tiff|bmp)$/) != null;
+    }
+
+    getImage(input) {
+        const url = filterXSS(input);
+        const div = document.createElement('div');
+        const img = document.createElement('img');
+        img.setAttribute('src', url);
+        img.setAttribute('width', '200px');
+        img.setAttribute('height', 'auto');
+        div.appendChild(img);
+        console.log('GetImg', div.firstChild.outerHTML);
+        return div.firstChild.outerHTML;
+    }
+
+    getLink(input) {
+        const url = filterXSS(input);
+        const a = document.createElement('a');
+        const div = document.createElement('div');
+        const linkText = document.createTextNode(url);
+        a.setAttribute('href', url);
+        a.setAttribute('target', '_blank');
+        a.appendChild(linkText);
+        div.appendChild(a);
+        console.log('GetLink', div.firstChild.outerHTML);
+        return div.firstChild.outerHTML;
+    }
+
+    getPre(input) {
+        const text = filterXSS(input);
+        const pre = document.createElement('pre');
+        const div = document.createElement('div');
+        pre.textContent = text;
+        div.appendChild(pre);
+        console.log('GetPre', div.firstChild.outerHTML);
+        return div.firstChild.outerHTML;
+    }
+
+    getIframe(input) {
+        const url = filterXSS(input);
+        const iframe = document.createElement('iframe');
+        const div = document.createElement('div');
+        const is_youtube = this.getVideoType(url) == 'na' ? true : false;
+        const video_audio_url = is_youtube ? this.getYoutubeEmbed(url) : url;
+        iframe.setAttribute('title', 'Chat-IFrame');
+        iframe.setAttribute('src', video_audio_url);
+        iframe.setAttribute('width', 'auto');
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute(
+            'allow',
+            'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+        );
+        iframe.setAttribute('allowfullscreen', 'allowfullscreen');
+        div.appendChild(iframe);
+        console.log('GetIFrame', div.firstChild.outerHTML);
+        return div.firstChild.outerHTML;
     }
 
     getLineBreaks(message) {
@@ -3194,7 +3261,7 @@ class RoomClient {
             });
         }
         if (this.isMobileDevice) this.getId('swapCameraButton').className = '';
-        this.getId('recordingStatus').innerHTML = '0s';
+        this.getId('recordingStatus').innerText = '0s';
         this.event(_EVENTS.stopRec);
         this.sound('recStop');
     }
@@ -3289,8 +3356,8 @@ class RoomClient {
                 return userLog('info', 'Nenhum participante detectado', 'top-end');
             }
             // prevent XSS injection
-            if (this.isHtml(this.fileToSend.name))
-                return userLog('warning', 'Nome de arquivo inválido!', 'top-end', 5000);
+            if (this.isHtml(this.fileToSend.name) || !this.isValidFileName(this.fileToSend.name))
+                return userLog('warning', 'Nome do arquivo inválido!', 'top-end', 5000);
 
             const fileInfo = {
                 peer_id: peer_id,
@@ -3300,6 +3367,7 @@ class RoomClient {
                 fileSize: this.fileToSend.size,
                 fileType: this.fileToSend.type,
             };
+            this.setMsgAvatar('right', this.peer_name);
             this.appendMessage(
                 'right',
                 this.rightMsgAvatar,
@@ -3341,6 +3409,7 @@ class RoomClient {
             html.newline +
             ' Tamanho do arquivo: ' +
             this.bytesToSize(this.incomingFileInfo.fileSize);
+        this.setMsgAvatar('left', this.incomingFileInfo.peer_name);
         this.appendMessage(
             'left',
             this.leftMsgAvatar,
@@ -3356,7 +3425,7 @@ class RoomClient {
             'all',
             'all',
         );
-        receiveFileInfo.innerHTML = fileToReceiveInfo;
+        receiveFileInfo.innerText = fileToReceiveInfo;
         receiveFileDiv.style.display = 'inline';
         receiveProgress.max = this.incomingFileInfo.fileSize;
         this.userLog('info', fileToReceiveInfo, 'top-end');
@@ -3372,7 +3441,7 @@ class RoomClient {
 
         this.sendInProgress = true;
 
-        sendFileInfo.innerHTML =
+        sendFileInfo.innerText =
             'Nome do arquivo: ' +
             this.fileToSend.name +
             html.newline +
@@ -3403,8 +3472,7 @@ class RoomClient {
             offset += data.fileData.byteLength;
 
             sendProgress.value = offset;
-            sendFilePercentage.innerHTML =
-                'Progresso do envio: ' + ((offset / this.fileToSend.size) * 100).toFixed(2) + '%';
+            sendFilePercentage.innerText = 'Progresso do envio: ' + ((offset / this.fileToSend.size) * 100).toFixed(2) + '%';
 
             // send file completed
             if (offset === this.fileToSend.size) {
@@ -3456,7 +3524,7 @@ class RoomClient {
         this.receiveBuffer.push(data.fileData);
         this.receivedSize += data.fileData.byteLength;
         receiveProgress.value = this.receivedSize;
-        receiveFilePercentage.innerHTML =
+        receiveFilePercentage.innerText =
             'Progresso recebido: ' + ((this.receivedSize / this.incomingFileInfo.fileSize) * 100).toFixed(2) + '%';
         if (this.receivedSize === this.incomingFileInfo.fileSize) {
             receiveFileDiv.style.display = 'none';
@@ -3550,6 +3618,11 @@ class RoomClient {
         return '<pre>' + JSON.stringify(obj, null, 4) + '</pre>';
     }
 
+    isValidFileName(fileName) {
+        const invalidChars = /[\\\/\?\*\|:"<>]/;
+        return !invalidChars.test(fileName);
+    }
+
     // ####################################################
     // SHARE VIDEO YOUTUBE - MP4 - WEBM - OGG or AUDIO mp3
     // ####################################################
@@ -3585,6 +3658,7 @@ class RoomClient {
             },
         }).then((result) => {
             if (result.value) {
+                result.value = filterXSS(result.value);
                 if (!this.thereIsParticipants()) {
                     return userLog('info', 'Nenhum participante detectado', 'top-end');
                 }
@@ -3749,6 +3823,10 @@ class RoomClient {
 
     roomAction(action, emit = true) {
         let data = {
+            room_id: this.room_id,
+            peer_id: this.peer_id,
+            peer_name: this.peer_name,
+            peer_uuid: this.peer_uuid,
             action: action,
             password: null,
         };
@@ -3882,7 +3960,7 @@ class RoomClient {
                     let lobbyTr = '';
                     let peer_id = data.peer_id;
                     let peer_name = data.peer_name;
-                    let avatarImg = getParticipantAvatar(peer_name);
+                    let avatarImg = this.genAvatarSvg(peer_name, 32);
                     let lobbyTb = this.getId('lobbyTb');
                     let lobbyAccept = _PEER.acceptPeer;
                     let lobbyReject = _PEER.ejectPeer;
@@ -3891,7 +3969,7 @@ class RoomClient {
 
                     lobbyTr += `
                     <tr id='${peer_id}'>
-                        <td><img src='${avatarImg}'></td>
+                        <td><img src="${avatarImg}" /></td>
                         <td>${peer_name}</td>
                         <td><button id=${lobbyAcceptId} onclick="rc.lobbyAction(this.id, 'accept')">${lobbyAccept}</button></td>
                         <td><button id=${lobbyRejectId} onclick="rc.lobbyAction(this.id, 'reject')">${lobbyReject}</button></td>
@@ -4272,6 +4350,8 @@ class RoomClient {
         if (emit) {
             let data = {
                 from_peer_name: this.peer_name,
+                from_peer_id: this.peer_id,
+                from_peer_uuid: this.peer_uuid,
                 peer_id: peer_id,
                 action: action,
                 broadcast: broadcast,
@@ -4285,6 +4365,7 @@ class RoomClient {
             switch (action) {
                 case 'eject':
                     if (peer_id === this.peer_id || broadcast) {
+                        this.exit(true);
                         this.sound(action);
                         this.peerActionProgress(from_peer_name, 'Irá remover você da sala', 5000, action);
                     }

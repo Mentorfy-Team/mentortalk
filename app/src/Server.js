@@ -40,7 +40,7 @@ dependencies: {
  * @license For commercial or closed source, contact us at license.mirotalk@gmail.com or purchase directly via CodeCanyon
  * @license CodeCanyon: https://codecanyon.net/item/mirotalk-sfu-webrtc-realtime-video-conferences/40769970
  * @author  Miroslav Pejic - miroslav.pejic.85@gmail.com
- * @version 1.0.4
+ * @version 1.0.5
  *
  */
 
@@ -564,14 +564,17 @@ function startServer() {
             roomList.get(socket.room_id).broadCast(socket.id, 'cmd', data);
         });
 
-        socket.on('roomAction', (dataObject) => {
+        socket.on('roomAction', async (dataObject) => {
             if (!roomList.has(socket.room_id)) return;
 
             const data = checkXSS(dataObject);
 
+            const isPresenter = await isPeerPresenter(socket.room_id, data.peer_name, data.peer_uuid);
+
             log.debug('Room action:', data);
             switch (data.action) {
                 case 'lock':
+                    if (!isPresenter) return;
                     if (!roomList.get(socket.room_id).isLocked()) {
                         roomList.get(socket.room_id).setLocked(true, data.password);
                         roomList.get(socket.room_id).broadCast(socket.id, 'roomAction', data.action);
@@ -589,14 +592,17 @@ function startServer() {
                     roomList.get(socket.room_id).sendTo(socket.id, 'roomPassword', roomData);
                     break;
                 case 'unlock':
+                    if (!isPresenter) return;
                     roomList.get(socket.room_id).setLocked(false);
                     roomList.get(socket.room_id).broadCast(socket.id, 'roomAction', data.action);
                     break;
                 case 'lobbyOn':
+                    if (!isPresenter) return;
                     roomList.get(socket.room_id).setLobbyEnabled(true);
                     roomList.get(socket.room_id).broadCast(socket.id, 'roomAction', data.action);
                     break;
                 case 'lobbyOff':
+                    if (!isPresenter) return;
                     roomList.get(socket.room_id).setLobbyEnabled(false);
                     roomList.get(socket.room_id).broadCast(socket.id, 'roomAction', data.action);
                     break;
@@ -631,12 +637,18 @@ function startServer() {
             }
         });
 
-        socket.on('peerAction', (dataObject) => {
+        socket.on('peerAction', async (dataObject) => {
             if (!roomList.has(socket.room_id)) return;
 
             const data = checkXSS(dataObject);
 
             log.debug('Peer action', data);
+
+            const presenterActions = ['mute', 'hide', 'eject'];
+            if (presenterActions.some((v) => data.action === v)) {
+                const isPresenter = await isPeerPresenter(socket.room_id, data.from_peer_name, data.from_peer_uuid);
+                if (!isPresenter) return;
+            }
 
             if (data.broadcast) {
                 roomList.get(socket.room_id).broadCast(data.peer_id, 'peerAction', data);
@@ -659,6 +671,11 @@ function startServer() {
             if (!roomList.has(socket.room_id)) return;
 
             const data = checkXSS(dataObject);
+
+            if (!isValidFileName(data.fileName)) {
+                log.debug('File name not valid', data);
+                return;
+            }
 
             log.debug('Send File Info', data);
             if (data.broadcast) {
@@ -690,6 +707,11 @@ function startServer() {
             if (!roomList.has(socket.room_id)) return;
 
             const data = checkXSS(dataObject);
+
+            if (data.action == 'open' && !isValidHttpURL(data.video_url)) {
+                log.debug('Video src not valid', data);
+                return;
+            }
 
             log.debug('Share video: ', data);
             if (data.peer_id == 'all') {
@@ -738,7 +760,7 @@ function startServer() {
             const peer_ip = socket.handshake.headers['x-forwarded-for'] || socket.conn.remoteAddress;
 
             // Get peer Geo Location
-            if (config.IPLookup.enabled && (peer_ip != '::1' || peer_ip != '127.0.0.1')) {
+            if (config.IPLookup.enabled && peer_ip != '::1') {
                 dataObject.peer_geo = await getPeerGeoLocation(peer_ip);
             }
 
@@ -778,10 +800,7 @@ function startServer() {
 
             log.debug('[Join] - Connected presenters grp by roomId', presenters);
 
-            const isPresenter =
-                Object.keys(presenters[socket.room_id]).length > 1 &&
-                presenters[socket.room_id]['peer_name'] == peer_name &&
-                presenters[socket.room_id]['peer_uuid'] == peer_uuid;
+            const isPresenter = await isPeerPresenter(socket.room_id, peer_name, peer_uuid);
 
             roomList
                 .get(socket.room_id)
@@ -946,8 +965,15 @@ function startServer() {
         socket.on('message', (dataObject) => {
             if (!roomList.has(socket.room_id)) return;
 
-            // const data = checkXSS(dataObject);
-            const data = dataObject;
+            const data = checkXSS(dataObject);
+
+            // check if the message coming from real peer
+            const realPeer = isRealPeer(data.peer_name, data.peer_id);
+            if (!realPeer) {
+                const peer_name = getPeerName(false);
+                log.debug('Fake message detected', { realFrom: peer_name, fakeFrom: data.peer_name, msg: data.msg });
+                return;
+            }
 
             log.debug('message', data);
             if (data.to_peer_id == 'all') {
@@ -1054,6 +1080,33 @@ function startServer() {
             }
         }
 
+        function isRealPeer(name, id) {
+            let peerName =
+                (roomList.get(socket.room_id) &&
+                    roomList.get(socket.room_id).getPeers()?.get(id)?.peer_info?.peer_name) ||
+                'undefined';
+            if (peerName == name) return true;
+            return false;
+        }
+
+        function isValidFileName(fileName) {
+            const invalidChars = /[\\\/\?\*\|:"<>]/;
+            return !invalidChars.test(fileName);
+        }
+
+        function isValidHttpURL(input) {
+            const pattern = new RegExp(
+                '^(https?:\\/\\/)?' + // protocol
+                    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+                    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+                    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+                    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+                    '(\\#[-a-z\\d_]*)?$',
+                'i',
+            ); // fragment locator
+            return pattern.test(input);
+        }
+
         function removeMeData() {
             return {
                 room_id: roomList.get(socket.room_id) && socket.room_id,
@@ -1069,6 +1122,27 @@ function startServer() {
             return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
         }
     });
+
+    async function isPeerPresenter(room_id, peer_name, peer_uuid) {
+        let isPresenter = false;
+        try {
+            isPresenter =
+                typeof presenters === 'object' &&
+                Object.keys(presenters[room_id]).length > 1 &&
+                presenters[room_id]['peer_name'] === peer_name &&
+                presenters[room_id]['peer_uuid'] === peer_uuid;
+        } catch (err) {
+            log.error('isPeerPresenter', err);
+            return false;
+        }
+        log.debug('isPeerPresenter', {
+            room_id: room_id,
+            peer_name: peer_name,
+            peer_uuid: peer_uuid,
+            isPresenter: isPresenter,
+        });
+        return isPresenter;
+    }
 
     async function getPeerGeoLocation(ip) {
         const endpoint = config.IPLookup.getEndpoint(ip);
