@@ -454,7 +454,7 @@ function startServer() {
         if (config.ngrok.authToken !== '') {
             return ngrokStart();
         }
-        log.debug('Settings', {
+        log.info('Settings', {
             node_version: process.versions.node,
             hostConfig: hostCfg,
             announced_ip: announcedIP,
@@ -944,7 +944,7 @@ function startServer() {
             callback();
         });
 
-        socket.on('getRoomInfo', (_, cb) => {
+        socket.on('getRoomInfo', async (_, cb) => {
             if (!roomList.has(socket.room_id)) return;
 
             log.debug('Send Room Info to', getPeerName());

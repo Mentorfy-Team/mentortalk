@@ -148,6 +148,7 @@ function initClient() {
         setTippy('tabLanguagesBtn', 'Linguagens', 'top');
         setTippy('lobbyAcceptAllBtn', 'Aceitar', 'top');
         setTippy('lobbyRejectAllBtn', 'Rejeitar', 'top');
+        setTippy('participantsButton', 'Alternar participantes', 'right');
         setTippy(
             'switchLobby',
             'Modo de Espera permite que você aceite ou rejeite participantes antes de entrar na reunião',
