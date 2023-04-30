@@ -67,19 +67,20 @@ function resizeVideoMedia() {
     }
 
     max = max - Margin * 2;
-    let max2Height = null;
+    let max2Height = 0;
     if (isTwoVideoElement) max2Height = Height * 0.68;
-    setWidth(Cameras, max, bigWidth, Margin, Height, isOneVideoElement, max2Height + 'px');
+
+    setWidth(Cameras, max, bigWidth, Margin, Height, isOneVideoElement, max2Height);
     document.documentElement.style.setProperty('--vmi-wh', max / 3 + 'px');
 }
 
 function setWidth(Cameras, width, bigWidth, margin, maxHeight, isOneVideoElement, max2Height) {
     ratio = customRatio ? 0.68 : ratio;
-    console.log(width, ratio, customRatio);
+
     for (const element of Cameras) {
         element.style.width = width + 'px';
         element.style.margin = margin + 'px';
-        element.style.height = max2Height > 0 ? max2Height : width * ratio + 'px';
+        element.style.height = max2Height > 0 ? max2Height + 'px' : width * ratio + 'px';
         if (isOneVideoElement) {
             element.style.width = bigWidth + 'px';
             element.style.height = bigWidth * ratio + 'px';
