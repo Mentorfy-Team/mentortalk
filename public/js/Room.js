@@ -639,7 +639,7 @@ async function shareRoom(useNavigator = false) {
             showDenyButton: true,
             showCancelButton: true,
             cancelButtonColor: 'red',
-            denyButtonColor: 'green',
+            denyButtonColor: 'orange',
             confirmButtonText: `Copy URL`,
             denyButtonText: `Email invite`,
             cancelButtonText: `Close`,
@@ -1424,7 +1424,7 @@ function handleRoomClientEvents() {
         console.log('Room Client raise hand');
         hide(raiseHandButton);
         show(lowerHandButton);
-        setColor(lowerHandButton, 'green');
+        setColor(lowerHandButton, 'orange');
     });
     rc.on(RoomClient.EVENTS.lowerHand, () => {
         console.log('Room Client lower hand');
@@ -1795,20 +1795,20 @@ function setWhiteboardBgColor(color) {
 function whiteboardIsDrawingMode(status) {
     wbCanvas.isDrawingMode = status;
     if (status) {
-        setColor(whiteboardPencilBtn, 'green');
+        setColor(whiteboardPencilBtn, 'orange');
         setColor(whiteboardObjectBtn, 'white');
         setColor(whiteboardEraserBtn, 'white');
         wbIsEraser = false;
     } else {
         setColor(whiteboardPencilBtn, 'white');
-        setColor(whiteboardObjectBtn, 'green');
+        setColor(whiteboardObjectBtn, 'orange');
     }
 }
 
 function whiteboardIsEraser(status) {
     whiteboardIsDrawingMode(false);
     wbIsEraser = status;
-    setColor(whiteboardEraserBtn, wbIsEraser ? 'green' : 'white');
+    setColor(whiteboardEraserBtn, wbIsEraser ? 'orange' : 'white');
 }
 
 function whiteboardAddObj(type) {
@@ -2292,25 +2292,25 @@ function getParticipantAvatar(peerName) {
 // ####################################################
 
 function setTheme(theme) {
-    switch (theme) {
-        case 'dark':
-            swalBackground = '#393939';
-            document.documentElement.style.setProperty('--body-bg', '#393939');
-            document.documentElement.style.setProperty('--msger-bg', '#393939');
-            document.documentElement.style.setProperty('--settings-bg', '#393939');
-            document.documentElement.style.setProperty('--wb-bg', '#393939');
-            // document.body.style.background = '#393939';
-            break;
-        case 'grey':
-            swalBackground = '#403e40';
-            document.documentElement.style.setProperty('--body-bg', '#403e40');
-            document.documentElement.style.setProperty('--msger-bg', '#403e40');
-            document.documentElement.style.setProperty('--settings-bg', '#403e40');
-            document.documentElement.style.setProperty('--wb-bg', 'radial-gradient(#797979, #000)');
-            // document.body.style.background = '#403e40';
-            break;
-        //...
-    }
+    // switch (theme) {
+    //     case 'dark':
+    //         swalBackground = '#393939';
+    //         document.documentElement.style.setProperty('--body-bg', '#393939');
+    //         document.documentElement.style.setProperty('--msger-bg', '#393939');
+    //         document.documentElement.style.setProperty('--settings-bg', '#393939');
+    //         document.documentElement.style.setProperty('--wb-bg', '#393939');
+    //         // document.body.style.background = '#393939';
+    //         break;
+    //     case 'grey':
+    //         swalBackground = '#403e40';
+    //         document.documentElement.style.setProperty('--body-bg', '#403e40');
+    //         document.documentElement.style.setProperty('--msger-bg', '#403e40');
+    //         document.documentElement.style.setProperty('--settings-bg', '#403e40');
+    //         document.documentElement.style.setProperty('--wb-bg', 'radial-gradient(#797979, #000)');
+    //         // document.body.style.background = '#403e40';
+    //         break;
+    //     //...
+    // }
     currentTheme = theme;
     wbIsBgTransparent = false;
     rc.isChatBgTransparent = false;
