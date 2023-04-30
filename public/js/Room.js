@@ -2302,12 +2302,12 @@ function setTheme(theme) {
             // document.body.style.background = '#393939';
             break;
         case 'grey':
-            swalBackground = '#666';
-            document.documentElement.style.setProperty('--body-bg', '#666');
-            document.documentElement.style.setProperty('--msger-bg', '#666');
-            document.documentElement.style.setProperty('--settings-bg', '#666');
+            swalBackground = '#403e40';
+            document.documentElement.style.setProperty('--body-bg', '#403e40');
+            document.documentElement.style.setProperty('--msger-bg', '#403e40');
+            document.documentElement.style.setProperty('--settings-bg', '#403e40');
             document.documentElement.style.setProperty('--wb-bg', 'radial-gradient(#797979, #000)');
-            // document.body.style.background = '#666';
+            // document.body.style.background = '#403e40';
             break;
         //...
     }
