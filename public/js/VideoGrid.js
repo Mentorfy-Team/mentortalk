@@ -68,7 +68,7 @@ function resizeVideoMedia() {
 
     max = max - Margin * 2;
     let max2Height = 0;
-    if (isTwoVideoElement) max2Height = Height * 0.68;
+    if (isTwoVideoElement) max2Height = max * 0.68;
 
     setWidth(Cameras, max, bigWidth, Margin, Height, isOneVideoElement, max2Height);
     document.documentElement.style.setProperty('--vmi-wh', max / 3 + 'px');
