@@ -502,7 +502,7 @@ function whoAreYou() {
         inputPlaceholder: 'Digite seu nome',
         inputValue: default_name,
         html: initUser, // Inject HTML
-        confirmButtonText: `Entrar`,
+        confirmButtonText: `Participar`,
         showClass: {
             popup: 'animate__animated animate__fadeIn',
         },
@@ -2294,20 +2294,20 @@ function getParticipantAvatar(peerName) {
 function setTheme(theme) {
     switch (theme) {
         case 'dark':
-            swalBackground = 'radial-gradient(#393939, #000000)';
-            document.documentElement.style.setProperty('--body-bg', 'radial-gradient(#393939, #000000)');
-            document.documentElement.style.setProperty('--msger-bg', 'radial-gradient(#393939, #000000)');
-            document.documentElement.style.setProperty('--settings-bg', 'radial-gradient(#393939, #000000)');
-            document.documentElement.style.setProperty('--wb-bg', 'radial-gradient(#393939, #000000)');
-            document.body.style.background = 'radial-gradient(#393939, #000000)';
+            swalBackground = '#393939';
+            document.documentElement.style.setProperty('--body-bg', '#393939');
+            document.documentElement.style.setProperty('--msger-bg', '#393939');
+            document.documentElement.style.setProperty('--settings-bg', '#393939');
+            document.documentElement.style.setProperty('--wb-bg', '#393939');
+            // document.body.style.background = '#393939';
             break;
         case 'grey':
-            swalBackground = 'radial-gradient(#666, #333)';
-            document.documentElement.style.setProperty('--body-bg', 'radial-gradient(#666, #333)');
-            document.documentElement.style.setProperty('--msger-bg', 'radial-gradient(#666, #333)');
-            document.documentElement.style.setProperty('--settings-bg', 'radial-gradient(#666, #333)');
+            swalBackground = '#666';
+            document.documentElement.style.setProperty('--body-bg', '#666');
+            document.documentElement.style.setProperty('--msger-bg', '#666');
+            document.documentElement.style.setProperty('--settings-bg', '#666');
             document.documentElement.style.setProperty('--wb-bg', 'radial-gradient(#797979, #000)');
-            document.body.style.background = 'radial-gradient(#666, #333)';
+            // document.body.style.background = '#666';
             break;
         //...
     }

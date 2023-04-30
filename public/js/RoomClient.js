@@ -1137,14 +1137,14 @@ class RoomClient {
                 if (this.numSimulcastStreamsWebcam > 1) {
                     encodings.unshift({
                         scaleResolutionDownBy: 2,
-                        maxBitrate: 1000000,
+                        maxBitrate: 800000,
                         scalabilityMode: this.webcamScalabilityMode || 'L1T3',
                     });
                 }
                 if (this.numSimulcastStreamsWebcam > 2) {
                     encodings.unshift({
                         scaleResolutionDownBy: 4,
-                        maxBitrate: 500000,
+                        maxBitrate: 400000,
                         scalabilityMode: this.webcamScalabilityMode || 'L1T3',
                     });
                 }
@@ -2515,13 +2515,13 @@ class RoomClient {
         let videoPlayer = this.getId(elemId);
         let zoom = 1;
         if (videoPlayer) {
-            videoPlayer.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                let delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
-                delta > 0 ? (zoom *= 1.2) : (zoom /= 1.2);
-                if (zoom < 1) zoom = 1;
-                videoPlayer.style.scale = zoom;
-            });
+            // videoPlayer.addEventListener('wheel', (e) => {
+            //     e.preventDefault();
+            //     let delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
+            //     delta > 0 ? (zoom *= 1.2) : (zoom /= 1.2);
+            //     if (zoom < 1) zoom = 1;
+            //     videoPlayer.style.scale = zoom;
+            // });
         }
     }
 
@@ -3472,7 +3472,8 @@ class RoomClient {
             offset += data.fileData.byteLength;
 
             sendProgress.value = offset;
-            sendFilePercentage.innerText = 'Progresso do envio: ' + ((offset / this.fileToSend.size) * 100).toFixed(2) + '%';
+            sendFilePercentage.innerText =
+                'Progresso do envio: ' + ((offset / this.fileToSend.size) * 100).toFixed(2) + '%';
 
             // send file completed
             if (offset === this.fileToSend.size) {

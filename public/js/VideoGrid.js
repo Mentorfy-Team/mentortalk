@@ -46,6 +46,7 @@ function resizeVideoMedia() {
     let max = 0;
     let optional = isHideMeActive ? 1 : 0;
     let isOneVideoElement = videoMediaContainer.childElementCount - optional == 1 ? true : false;
+    let isTwoVideoElement = videoMediaContainer.childElementCount - optional == 2 ? true : false;
     //console.log('videoMediaContainer.childElementCount: ', videoMediaContainer.childElementCount - optional);
 
     // full screen mode
@@ -66,21 +67,24 @@ function resizeVideoMedia() {
     }
 
     max = max - Margin * 2;
-    setWidth(Cameras, max, bigWidth, Margin, Height, isOneVideoElement);
+    let max2Height = null;
+    if (isTwoVideoElement) max2Height = Height * 0.68;
+    setWidth(Cameras, max, bigWidth, Margin, Height, isOneVideoElement, max2Height + 'px');
     document.documentElement.style.setProperty('--vmi-wh', max / 3 + 'px');
 }
 
-function setWidth(Cameras, width, bigWidth, margin, maxHeight, isOneVideoElement) {
+function setWidth(Cameras, width, bigWidth, margin, maxHeight, isOneVideoElement, max2Height) {
     ratio = customRatio ? 0.68 : ratio;
-    for (let s = 0; s < Cameras.length; s++) {
-        Cameras[s].style.width = width + 'px';
-        Cameras[s].style.margin = margin + 'px';
-        Cameras[s].style.height = width * ratio + 'px';
+    console.log(width, ratio, customRatio);
+    for (const element of Cameras) {
+        element.style.width = width + 'px';
+        element.style.margin = margin + 'px';
+        element.style.height = max2Height > 0 ? max2Height : width * ratio + 'px';
         if (isOneVideoElement) {
-            Cameras[s].style.width = bigWidth + 'px';
-            Cameras[s].style.height = bigWidth * ratio + 'px';
-            let camHeigh = Cameras[s].style.height.substring(0, Cameras[s].style.height.length - 2);
-            if (camHeigh >= maxHeight) Cameras[s].style.height = maxHeight - 2 + 'px';
+            element.style.width = bigWidth + 'px';
+            element.style.height = bigWidth * ratio + 'px';
+            let camHeigh = element.style.height.substring(0, element.style.height.length - 2);
+            if (camHeigh >= maxHeight) element.style.height = maxHeight - 2 + 'px';
         }
     }
 }

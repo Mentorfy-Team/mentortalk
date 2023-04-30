@@ -87,7 +87,7 @@
             <div>
                 <img src="../images/Mentorfy Meeting Mountain.png" />
             </div>
-            <img src="../images/loader.gif" />
+            <img src="../images/loader.gif" style="max-width: 60%" />
             <pre>
 Por favor, permita o acesso a camera
 ou microfone para usar este aplicativo.
@@ -99,46 +99,38 @@ ou microfone para usar este aplicativo.
                 <!-- <p>Please allow the camera & microphone access to use this app.</p> -->
                 <img src="../images/Mentorfy Meeting Mountain.png" />
                 <div style="height: 15px"></div>
-                <video
-                    id="initVideo"
-                    playsinline="true"
-                    autoplay=""
-                    class="mirror"
-                    poster="../images/loader.gif"
-                    style="object-fit: var(--videoObjFit)"
-                ></video>
-                <button id="initVideoButton" class="fas fa-video" onclick="handleVideo(event)"></button>
-                <button id="initAudioButton" class="fas fa-microphone" onclick="handleAudio(event)"></button>
-                <button id="initAudioVideoButton" class="fas fa-eye" onclick="handleAudioVideo(event)"></button>
-                <button id="initStartScreenButton" class="hidden" onclick="toggleScreenSharing()">
-                    <i class="fas fa-desktop"></i>
-                </button>
-                <button id="initStopScreenButton" class="hidden" onclick="toggleScreenSharing()">
-                    <i class="fas fa-stop-circle"></i>
-                </button>
+                <div style="position: relative; min-height: 60px">
+                    <video
+                        id="initVideo"
+                        playsinline="true"
+                        autoplay=""
+                        class="mirror"
+                        poster="../images/loader.gif"
+                        style="object-fit: var(--videoObjFit); max-width: 60%"
+                    ></video>
+                    <div id="AbsoluteButtonConfigWrapper">
+                        <button id="initVideoButton" class="fas fa-video" onclick="handleVideo(event)"></button>
+                        <button id="initAudioButton" class="fas fa-microphone" onclick="handleAudio(event)"></button>
+                        <button
+                            id="initStartScreenButton"
+                            style="display: none"
+                            class="hidden"
+                            onclick="toggleScreenSharing()"
+                        >
+                            <i class="fas fa-desktop"></i>
+                        </button>
+                        <button id="initStopScreenButton" class="hidden" onclick="toggleScreenSharing()">
+                            <i class="fas fa-stop-circle"></i>
+                        </button>
+                    </div>
+                </div>
                 <select id="initVideoSelect" class="form-select text-light bg-dark"></select>
-                <select id="initMicrophoneSelect" class="form-select text-light bg-dark"></select>
-                <select id="initSpeakerSelect" class="form-select text-light bg-dark"></select>
+                <div style="display: flex; gap: 20px">
+                    <select id="initMicrophoneSelect" class="form-select text-light bg-dark"></select>
+                    <select id="initSpeakerSelect" class="form-select text-light bg-dark"></select>
+                </div>
             </div>
         </section>
-
-        <div id="control" class="">
-            <button id="shareButton" class="hidden"><i class="fas fa-share-alt"></i></button>
-            <button id="hideMeButton" class="hidden"><i id="hideMeIcon" class="fas fa-user"></i></button>
-            <button id="startVideoButton" class="hidden"><i class="fas fa-video-slash"></i></button>
-            <button id="stopVideoButton" class="hidden"><i class="fas fa-video"></i></button>
-            <button id="swapCameraButton" class="hidden"><i class="fas fa-camera-rotate"></i></button>
-            <button id="startAudioButton" class="hidden"><i class="fas fa-microphone-slash"></i></button>
-            <button id="stopAudioButton" class="hidden"><i class="fas fa-microphone"></i></button>
-            <button id="startScreenButton" class="hidden"><i class="fas fa-desktop"></i></button>
-            <button id="stopScreenButton" class="hidden"><i class="fas fa-stop-circle"></i></button>
-            <button id="chatButton" class="hidden"><i class="fas fa-comments"></i></button>
-            <button id="participantsButton" class="hidden"><i class="fas fa-users"></i></button>
-            <button id="whiteboardButton" class="hidden"><i class="fas fa-chalkboard-teacher"></i></button>
-            <button id="settingsButton" class="hidden"><i class="fas fa-cogs"></i></button>
-            <button id="aboutButton" class="hidden"><i class="fas fa-question"></i></button>
-            <button id="exitButton" class="hidden"><i class="fas fa-right-from-bracket"></i></button>
-        </div>
 
         <section id="mySettings" class="center hidden">
             <header id="mySettingsHeader">
@@ -363,8 +355,27 @@ ou microfone para usar este aplicativo.
         </section>
 
         <div id="videoPinMediaContainer"></div>
-        <div id="videoMediaContainer">
-            <!-- <div class="Camera"></div> -->
+        <div>
+            <div id="control" class="hidden">
+                <button id="shareButton" class="hidden"><i class="fas fa-share-alt"></i></button>
+                <button id="hideMeButton" class="hidden"><i id="hideMeIcon" class="fas fa-user"></i></button>
+                <button id="startVideoButton" class="hidden"><i class="fas fa-video-slash"></i></button>
+                <button id="stopVideoButton" class="hidden"><i class="fas fa-video"></i></button>
+                <button id="swapCameraButton" class="hidden"><i class="fas fa-camera-rotate"></i></button>
+                <button id="startAudioButton" class="hidden"><i class="fas fa-microphone-slash"></i></button>
+                <button id="stopAudioButton" class="hidden"><i class="fas fa-microphone"></i></button>
+                <button id="startScreenButton" class="hidden"><i class="fas fa-desktop"></i></button>
+                <button id="stopScreenButton" class="hidden"><i class="fas fa-stop-circle"></i></button>
+                <button id="chatButton" class="hidden"><i class="fas fa-comments"></i></button>
+                <button id="participantsButton" class="hidden"><i class="fas fa-users"></i></button>
+                <button id="whiteboardButton" class="hidden"><i class="fas fa-chalkboard-teacher"></i></button>
+                <button id="settingsButton" class="hidden"><i class="fas fa-cogs"></i></button>
+                <button id="aboutButton" class="hidden"><i class="fas fa-question"></i></button>
+                <button id="exitButton" class="hidden"><i class="fas fa-right-from-bracket"></i></button>
+            </div>
+            <div id="videoMediaContainer">
+                <!-- <div class="Camera"></div> -->
+            </div>
         </div>
         <div id="localAudio"></div>
         <div id="remoteAudios"></div>
