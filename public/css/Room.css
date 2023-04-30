@@ -1021,7 +1021,7 @@ progress {
     padding: 10px;
     width: var(--wb-width);
     height: var(--wb-height);
-    background: var(--wb-bg);
+    background: #2e2e2e;
     border: var(--border);
     box-shadow: var(--box-shadow);
     border-radius: 10px;
