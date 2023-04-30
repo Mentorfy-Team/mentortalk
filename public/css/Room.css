@@ -40,16 +40,16 @@
     --msger-height: 680px;
     --msger-width: 420px;
     --msger-bubble-width: 85%;
-    --msger-bg: #403e40;
+    --msger-bg: #2e2e2e;
     --wb-width: 800px;
     --wb-height: 600px;
-    --wb-bg: #393939;
+    --wb-bg: #2e2e2e;
     --left-msg-bg: #252d31;
     --right-msg-bg: #056162;
     --private-msg-bg: #6b1226;
     --box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.3);
     --btns-hover-scale: scale(1.1);
-    --settings-bg: #393939;
+    --settings-bg: #2e2e2e;
     /* buttons bar horizontal */
     /* --btns-top: 50%;
     --btns-right: 0%;
