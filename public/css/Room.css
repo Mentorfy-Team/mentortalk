@@ -75,6 +75,13 @@
     font-family: Roboto, Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace;
 }
 
+
+@media (max-width: 768px) {
+    .fas {
+        font-variant: all-small-caps !important;
+    }
+}
+
 html,
 body {
     top: 0 !important;
@@ -204,9 +211,17 @@ body {
     aspect-ratio: 1/1;
     /* transition: all 0.3s ease-in-out; */
     background: #272727;
-    border-radius: 100px;
+    border-radius: 100%;
     /* border: var(--border); */
     /* box-shadow: var(--box-shadow); */
+}
+
+@media (max-width: 768px) {
+    #control button {
+        padding: 5px;
+        max-width: 45px;
+        min-width: 45px;
+    }
 }
 
 #control p {
