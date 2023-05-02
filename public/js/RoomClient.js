@@ -1137,14 +1137,14 @@ class RoomClient {
                 if (this.numSimulcastStreamsWebcam > 1) {
                     encodings.unshift({
                         scaleResolutionDownBy: 2,
-                        maxBitrate: 800000,
+                        maxBitrate: 1000000,
                         scalabilityMode: this.webcamScalabilityMode || 'L1T3',
                     });
                 }
                 if (this.numSimulcastStreamsWebcam > 2) {
                     encodings.unshift({
                         scaleResolutionDownBy: 4,
-                        maxBitrate: 400000,
+                        maxBitrate: 500000,
                         scalabilityMode: this.webcamScalabilityMode || 'L1T3',
                     });
                 }
